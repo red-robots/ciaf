@@ -1,0 +1,17 @@
+[data-name="certifications"] .acf-editor-wrap .mce-edit-area.mce-container.mce-panel iframe {
+  height: 200px!important;
+}
+#side-sortables [data-name="gallery"] .acf-label {
+  display: none!important;
+}
+
+#side-sortables [data-name="gallery"] .acf-gallery-attachment,
+#side-sortables .acf-gallery[data-columns="2"] .acf-gallery-attachment {
+  width: 33.33%;
+}
+#side-sortables [data-name="gallery"] ul.acf-hl li.acf-fr {
+  margin-top: 0;
+  float: left;
+  width: 113px;
+  padding-left: 10px;
+}
