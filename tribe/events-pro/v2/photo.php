@@ -35,7 +35,9 @@ $header_bg = ($header_image) ? ' style="background-image:url('.$header_image['ur
 $custom_page_title = get_field('events_page_title','option');
 ?>
 <header class="page-header list-mode"<?php echo $header_bg ?>>
-  <h1 class="page-title"><span class="animated"><span class="rotated"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></span></span></h1>
+  <div class="middle-container">
+    <h1 class="page-title"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></h1>
+  </div>
 </header>
 <div
 	<?php tribe_classes( $container_classes ); ?>

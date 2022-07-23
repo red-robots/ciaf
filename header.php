@@ -35,12 +35,12 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 </head>
 <body <?php body_class();?>>
   <a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>
-  <span id="mobile-menu" class="mobile-menu"><span class="bar"></span></span>
 
   <div id="site">
   
   <div id="site-header" class="site-header">
     <div class="wrapper">
+      <span id="mobile-menu" class="mobile-menu"><span class="bar"></span></span>
       <div class="inner">
         <div id="site-logo">
           <?php if( get_custom_logo() ) { ?>
@@ -49,9 +49,19 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
             <h1 class="logo"><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h1>
           <?php } ?>
         </div>
-        <?php  if ( has_nav_menu( 'primary' ) ) { ?>
+        <?php  if ( has_nav_menu( 'primary' ) ) { 
+        $items_wrap = '<ul id="%1$s" class="%2$s">%3$s';
+        if( $cta = get_field('header_cta','option') ) { 
+          $ctaLink = ( isset($cta['url']) && $cta['url'] ) ? $cta['url'] : '';
+          $ctaTitle = ( isset($cta['title']) && $cta['title'] ) ? $cta['title'] : '';
+          $ctaTarget = ( isset($cta['target']) && $cta['target'] ) ? $cta['target'] : '_self';
+          if($ctaTitle && $ctaLink) {
+            $cta_button = '<a class="header-cta" href="'.$ctaLink.'" target="'.$ctaTarget.'"><span>'.$ctaTitle.'</span></a>';
+            $items_wrap .= sprintf( '<li id="head-cta-btn">%1$s</li></ul>', $cta_button );
+          }
+        } ?>
         <nav id="navigation" class="main-navigation" role="navigation">
-          <?php wp_nav_menu( array( 'theme_location' => 'primary', 'container'=>false, 'menu_id' => 'primary-menu') ); ?>
+          <?php wp_nav_menu( array( 'theme_location' => 'primary', 'container'=>false, 'menu_id' => 'primary-menu', 'items_wrap' => $items_wrap) ); ?>
         </nav>
         <?php } ?>
       </div>

@@ -98,7 +98,7 @@ if($events) {
         <!-- <div class="wrapper wrap-resizer">&nbsp;</div> -->
         <div class="inner-wrap">
           <div id="upcoming_events_carousel" data-total="<?php echo $show_count ?>" class="owl-carousel owl-theme">
-            <?php foreach($events as $ev) { 
+            <?php $ctr=1; foreach($events as $ev) { 
               $event_id = $ev->ID;
               $thumb_id = get_post_thumbnail_id($event_id);
               $img = wp_get_attachment_image_src($thumb_id,'full');
@@ -137,11 +137,11 @@ if($events) {
               $venue = tribe_get_venue($event_id);
               
               ?>
-              <div data-start="<?php echo $event_start_format ?>" data-termid="<?php echo $term_id ?>" data-term="<?php echo $term_slug ?>" class="item event project  upcoming-event-info<?php echo $term_class ?>">
+              <div id="event-item-<?php echo $ctr; ?>" data-start="<?php echo $event_start_format ?>" data-termid="<?php echo $term_id ?>" data-term="<?php echo $term_slug ?>" class="item event project  upcoming-event-info<?php echo $term_class ?>">
                 <div class="imagewrap">
                   <a href="<?php echo $pagelink ?>" class="image">
                     <figure class="img-bg" <?php echo $style ?>>
-                      <img src="<?php echo IMAGES_URL ?>/square.png" alt="" aria-hidden="true" />
+                      <img src="<?php echo IMAGES_URL ?>/rectangle-lg.png" alt="" aria-hidden="true" />
                     </figure>
                   </a>
                   <?php if ($firstCharacter) { ?>
@@ -163,10 +163,10 @@ if($events) {
                 </div>
                 <?php } ?>
               </div>
-            <?php } ?>
+            <?php $ctr++; } ?>
           </div>
-          <a href="javascript:void(0)" class="customNav" id="customNavPrev"><span>Prev</span></a>
-          <a href="javascript:void(0)" class="customNav" id="customNavNext"><span>Next</span></a>
+          <a href="javascript:void(0)" class="customNav" data-action=".owl-prev" id="customNavPrev"><span>Prev</span></a>
+          <a href="javascript:void(0)" class="customNav" data-action=".owl-next" id="customNavNext"><span>Next</span></a>
         </div>
       </div>  
 

@@ -41,7 +41,7 @@ if($featuredEvents) { ?>
     <div class="col col2">
       <div id="category-initial"<?php echo $default_color_style ?>><span><?php echo $default_firstChar ?></span></div>
       <div id="featured-events-posts">
-        <div id="swiper-vertical" class="swiper-container">
+        <div id="swiper-vertical" class="swiper-container fadeIn wow" data-wow-duration="1s" data-wow-delay="1s">
           <div class="swiper-wrapper">
 
             <?php $ctr=1; foreach ($featuredEvents as $ev) { 

@@ -22,7 +22,9 @@ get_header(); ?>
     
 
     <header class="page-header"<?php echo $header_bg ?>>
-      <h1 class="page-title"><span class="animated"><span class="rotated"><?php the_title(); ?></span></span></h1>
+      <div class="middle-container">
+        <h1 class="page-title"><?php the_title(); ?></h1>
+      </div>
     </header>
 
 

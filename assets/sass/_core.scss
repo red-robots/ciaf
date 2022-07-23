@@ -130,6 +130,11 @@ a {
     max-width: 85%;
     width: 100%;
     height: 100%;
+    @include max( $midwidth ) {
+      max-width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
   .inner {
     height: 100%;
@@ -143,10 +148,13 @@ a {
 }
 
 #site-logo {
-  width: 280px;
+  width: 250px;
   @include flexgroup();
   @include flexbox-justify(center);
   @include flexbox-align-items(center);
+  @include max( $midwidth ) {
+    width: 180px;
+  }
   a, img {
     display: block;
     width: 100%;
@@ -164,8 +172,11 @@ a {
     list-style: none;
   }
   ul.menu {
-    display: inline-block;
+    // display: inline-block;
     float: right;
+    @include flexgroup();
+    @include flexbox-justify(center);
+    @include flexbox-align-items(center);
   }
   ul.menu > li {
     display: inline-block;
@@ -181,9 +192,29 @@ a {
     display: inline-block;
     text-decoration: none;
     padding: 5px 20px;
+    @include max( $midwidth ) {
+      font-size: 1.1em;
+    }
   }
   ul.menu li:hover > a {
     color: $primary_color;
+  }
+  ul.menu > li.current_page_item > a,
+  ul.menu > li.current_page_item:hover > a {
+    color: $red;
+  }
+  ul.menu li#head-cta-btn  {
+    margin-left: 10px;
+    a.header-cta {
+      display: inline-block;
+      border: 2px solid $red;
+      padding: 5px 15px;
+      color: $red;
+      &:hover {
+        background: $red;
+        color: #FFF;
+      }
+    }
   }
 }
 
@@ -221,6 +252,10 @@ a {
     background-size: cover;
     transition: 1s opacity;
   }
+  @include max( $xswidth ) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .hero-verbiage {
@@ -229,6 +264,10 @@ a {
   position: relative;
   z-index: 10;
   border-bottom: 20px solid $bgcolor;
+  @include max( $xswidth ) {
+    overflow: hidden;
+    border-bottom: none;
+  }
   .wrapper {
     max-width: 100%;
     height: 100%;
@@ -241,6 +280,22 @@ a {
     width: 100%;
     transform: translateY(-50%);
     padding-left: 8%;
+    @include max( $xswidth ) {
+      height: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+      padding:0 0;
+      @include flexgroup();
+      @include flexbox-justify(center);
+      @include flexbox-align-items(center);
+      .animated-hero-text {
+        width: 75vw;
+        margin:0 auto;
+        text-align: center;
+      }
+    }
   }
   .t1, .t2, .t3 {
     font-family: $font_secondary;
@@ -253,11 +308,20 @@ a {
     animation-duration: 2s;
     animation-fill-mode: both;
     animation-name: left-to-right;
+    @include max( $xswidth ) {
+      font-size: 2.7vh;
+      margin-bottom: 10px;
+    }
   }
   .t2 {
     font-size: 12vh;
     font-weight: bold;
     line-height: 1.1;
+    @include max( $xswidth ) {
+      font-size: 6.5vh;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
   }
   .t3 {
     font-size: 10vh;
@@ -268,12 +332,16 @@ a {
     animation-delay: .8s;
     animation-fill-mode: both;
     animation-name: right-to-left;
+    @include max( $xswidth ) {
+      font-size: 4.5vh;
+      letter-spacing: -2px;
+    }
   }
 }
 
 #countdown {
   position: absolute;
-  bottom: 10vh;
+  bottom: 8vh;
   right: 0;
   z-index: 15;
   display: inline-block;
@@ -287,6 +355,14 @@ a {
     display: block;
     text-align: right;
     margin-top: 3vh;
+    @include animateThis(1.5s);
+    @include animateEffect('fadeInRight');
+    &.days {
+      animation-duration: 2s;
+    }
+    &.hours {
+      animation-duration: 2.8s;
+    }
   }
   .text {
     font-family: $font_primary;
@@ -304,6 +380,42 @@ a {
     line-height: 1;
     padding: 4px 4vw;
   }
+
+  @include max( $xswidth ) {
+    animation: none;
+    width: 100%;
+    bottom: 0;
+    .timer {
+      @include flexgroup();
+      @include flexbox-justify(space-between);
+    }
+    .counttype {
+      width: 32.5%;
+      margin:0 0;
+      text-align: center;
+      @include animateThis(1s);
+      @include animateEffect('fadeInUp');
+      &.days {
+        animation-duration: 1.5s;
+      }
+      &.hours {
+        animation-duration: 1.8s;
+      }
+      .text {
+        margin: 0 0 5px;
+        padding: 0 0;
+        font-size: 4vw;
+        line-height: 1;
+      }
+      .count {
+        font-size: 8vw;
+        line-height: 1;
+        width: 100%;
+        text-align: center;
+        padding: 4vw 4vw;
+      }
+    }
+  }
 }
 .section {
   width: 100%;
@@ -312,15 +424,36 @@ a {
   min-height: 20em;
   position: relative;
   z-index: 10;
+  @include max( $xswidth ) {
+    min-height: 10em;
+  }
 }
 .section-wander {
   background: $bgcolor;
   font-size: 2em;
   font-weight: 400;
   line-height: 1.4;
+  @include max( $xswidth ) {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-family: $font_secondary;
+    font-size: 2.1em;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gold;
+    margin: 0 0;
+    @include max( $xswidth ) {
+      font-size: 1.8em;
+      line-height: 1.1;
+    }
+  }
   .wrapper {
     padding-top: 150px;
     padding-bottom: 150px;
+    @include max( $xswidth ) {
+      padding: 70px 30px;
+    }
   }
 }
 
@@ -340,8 +473,13 @@ a {
   background: $bgcolor;
   overflow: hidden;
   min-height: 40em;
+  position: relative;
+  z-index: 50;
   .flexwrap {
     height: 100vh;
+    @include max( $tabwidth ) {
+      height: unset;
+    }
   }
   .col {
     width: 100%;
@@ -350,6 +488,9 @@ a {
   }
   .col1 {
     overflow: hidden;
+    @include max( $tabwidth ) {
+      height: 40vh;
+    }
   }
   .col2 {
     z-index: 15;
@@ -366,6 +507,11 @@ a {
     left: -25px;
     z-index: 10;
     transition: all ease .3s;
+    @include max( $tabwidth ) {
+      top: -3vh;
+      left: unset;
+      right: 30px;
+    }
     span {
       display: block;
       width: 100%;
@@ -401,6 +547,10 @@ a {
     top: 0;
     left: 0;
     padding-right: 13vw;
+    @include max( $tabwidth ) {
+      position: relative;
+      padding: 0 0;
+    }
   }
   .swiper-container,
   .swiper-wrapper,
@@ -451,12 +601,18 @@ a {
     padding: 20px 0 20px 5vw;
     text-align: left;
     color: #FFF;
+    @include max( $tabwidth ) {
+      padding: 50px 30px 100px;
+    }
     h2.title {
       font-family: $font_secondary;
       font-size: 2.7em;
       font-weight: 600;
       line-height: 1.1;
       margin:0 0 20px;
+      @include max( $tabwidth ) {
+        font-size: 2.3em;
+      }
     }
     .tag, .info {
       font-size: 1.4em;
@@ -473,6 +629,10 @@ a {
       font-size: 1.3em;
       line-height: 1.3;
       color: #000;
+      @include max( $xswidth ) {
+        font-size: 1em;
+        line-height: 1.4;
+      }
     }
     .cta-button {
       margin-top: 50px;
@@ -491,6 +651,28 @@ a {
         background: $red;
         color: #FFF;
       }
+      @include max( $xswidth ) {
+        font-size: 1.1em;
+      }
+    }
+  }
+
+  @include max( 640px ) {
+    .swiper-button-prev {
+      top: unset;
+      left: 35px;
+      bottom: -17px;
+      transform: rotate(-90deg);
+    }
+    .swiper-button-next {
+      top: unset;
+      left: unset;
+      right: 35px;
+      bottom: -17px;
+      transform: rotate(90deg);
+    }
+    .swiper-pagination {
+      bottom: 30px;
     }
   }
 }
@@ -513,6 +695,10 @@ a {
       display: none;
     }
   }
+  @include max( $tabwidth ) {
+    position: relative;
+    transform: none;
+  }
 }
 
 #upcoming-events {
@@ -521,6 +707,11 @@ a {
   background: $bgcolor;
   .section-title {
     font-size: 3em;
+    @include max( $xswidth ) {
+      font-size: 2.5em;
+      line-height: 1.1;
+      text-align: center;
+    }
   }
   .section-inner-content {
     padding: 100px 0 100px;
@@ -532,6 +723,9 @@ a {
     margin: 30px auto 100px;
     padding-left: 15px;
     padding-right: 15px;
+    @include max( $xswidth ) {
+      margin-bottom: 10px;
+    }
     label {
       font-family: $font_secondary;
       font-size: 1.8em;
@@ -539,12 +733,18 @@ a {
       margin:0 0 15px;
       width: 100%;
       float: left;
+      @include max( $xswidth ) {
+        font-size: 1.3em;
+      }
     }
     .selections {
       width: 100%;
       float: left;
       position: relative;
       top: 15px;
+      @include max( $xswidth ) {
+        top: 0;
+      }
     }
   }
   .filter-wrap {
@@ -559,6 +759,12 @@ a {
       }
       .fc-right {
         width: 30%;
+      }
+    }
+    @include max( $xswidth ) {
+      .filter-col {
+        text-align: center;
+        margin-bottom: 30px;
       }
     }
   }
@@ -640,6 +846,10 @@ a {
           top: 13px;
           right: 10px;
         }
+        @include max( $xswidth ) {
+          width: 100%;
+          margin:0 auto;
+        }
       }
       
       &:after {
@@ -696,7 +906,7 @@ body.logged-in.admin-bar {
   background-color: #CAB837;
   background-image: url('assets/images/CIAF_Logo_White.png');
   background-size: 12%;
-  background-position: bottom;
+  background-position: bottom center;
   background-repeat: repeat-x;
   min-height: 30em;
   position: relative;
@@ -924,6 +1134,43 @@ body.logged-in.admin-bar {
     color: #ff2a2a;
   }
 
+  @include max( $tabwidth ) {
+    background-size: 25%;
+    .wrapper {
+      padding-top: 50px;
+      padding-bottom: 80px;
+    }
+    .footer-flexwrap {
+      @include flexgroup();
+      .footcol {
+        width: 50%;
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  @include max( $xswidth ) {
+    .footer-flexwrap {
+      .footcol {
+        text-align: center;
+        width: 100%;
+        &.last {
+          margin-bottom: 0;
+        }
+        h3.title{
+          margin:10px 0;
+        }
+      }
+      .footcontent .formwrap {
+        @include flexgroup();
+        @include flexbox-justify(center);
+      }
+      .social-media {
+        @include flexgroup();
+        @include flexbox-justify(center);
+      }
+    }
+  }
 }
 
 /* Footer Form */
@@ -998,8 +1245,8 @@ body.logged-in.admin-bar {
   }
   .customNav {
     display: inline-block;
-    background: $blue;
-    width: 50px;
+    background: transparent;
+    width: 108px;
     position: absolute;
     top: 0;
     z-index: 10;
@@ -1020,12 +1267,15 @@ body.logged-in.admin-bar {
       transform: skew(15deg);
       bottom: 0;
     }
+    span {
+      display: none!important;
+    }
   }
   #customNavPrev {
     left: -40px;
   }
   #customNavNext {
-    right: -35px;
+    right: -95px;
     &:before, &:after {
       left: -30px;
     }
@@ -1038,6 +1288,36 @@ body.logged-in.admin-bar {
       bottom: 0;
     }
   }
+  @include max( $xswidth ) {
+    .inner-wrap {
+      padding:0 10vw;
+    }
+    .customNav {
+      transform: scale(0.2);
+      &#customNavPrev {
+        left: 0;
+        transform: translateX(-33px) scale(0.10);
+        &:before {
+          top: 3px;
+          transform: skew(-35deg);
+        }
+        &:after {
+          transform: skew(35deg);
+        }
+      }
+      &#customNavNext {
+        right: 0;
+        transform:translateX(37px) scale(0.10);
+        &:before {
+          top: 3px;
+          transform: skew(35deg);
+        }
+        &:after {
+          transform: skew(-35deg);
+        }
+      }
+    }
+  }
 }
 
 #upcoming_events_carousel {
@@ -1046,6 +1326,9 @@ body.logged-in.admin-bar {
     margin-bottom: 22px;
     .img-bg {
       @include backgroundImage(center);
+    }
+    @include max( $xswidth ) {
+      margin-bottom: 30px;
     }
   }
   figure {
@@ -1072,6 +1355,11 @@ body.logged-in.admin-bar {
       line-height: 1;
       color: #FFF;
     }
+    @include max( $xswidth ) {
+      width: 50px;
+      height: 50px;
+      bottom: -25px;
+    }
   }
   h3 {
     font-family: $font_secondary;
@@ -1095,9 +1383,30 @@ body.logged-in.admin-bar {
   .info {
     font-size: 18px;
     line-height: 1.3;
+    @include max( $xswidth ) {
+      font-size: 20px;
+    }
+  }
+  .owl-item {
+    transition: all ease .3s;
+  }
+  .owl-item:not(.active),
+  .owl-item.cloned:not(.active),
+  .owl-item.active.last {
+    opacity: 0.25;
+    h3, .term, .info {
+      opacity: 0;
+    }
+  }
+  @include max( $xswidth ) {
+    .owl-item:not(.active),
+    .owl-item.cloned:not(.active),
+    .owl-item.active.last,
+    h3, .term, .info {
+      opacity: 1!important;
+    }
   }
 }
-
 
 
 #upcoming-events-heading {
@@ -1123,7 +1432,1012 @@ body.logged-in.admin-bar {
     &:hover {
       color: $red;
     }
+    @include max( $xswidth ) {
+      top: -70px;
+    }
+  }
+}
+
+.mobile-menu {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  position: absolute;
+  top: 23px;
+  right: 20px;
+  z-index: 200;
+  span.bar,
+  span.bar:before,
+  span.bar:after {
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: #000;
+    position: absolute;
+    transition: all ease .2s;
+  }
+  span.bar {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  span.bar:before,
+  span.bar:after {
+    content:"";
+    background: #000!important;
+  }
+  span.bar:before {
+    transform: translateY(-12px);
+  }
+  span.bar:after {
+    transform: translateY(12px);
+  }
+  &.open {
+    span.bar {
+      background: transparent;
+      transform: rotate(-45deg);
+    }
+    span.bar:before {
+      transform: rotate(90deg);
+    }
+    span.bar:after {
+      transform: rotate(-180deg);
+    }
+    
+  }
+}
+
+@include max( $xswidth ) {
+  .mobile-menu {
+    display: block;
+  }
+  .site-header {
+    height: 85px;
+    .wrapper {
+      max-width: 100%;
+      width: 100%;
+    }
+    #site-logo {
+      width: 200px;
+    }
+  }
+  #navigation {
+    width: 0;
+    height: calc(100% - 85px);
+    // max-height: 0;
+    // height: 0;
+    position: fixed;
+    top: 85px;
+    left: 0;
+    z-index: -99;
+    background: rgba(0,0,0,.15);
+    opacity: 0;
+    overflow: hidden;
+    transition: all ease .5s;
+    @include flexgroup();
+    @include flexbox-justify(center);
+    @include flexbox-align-items(center);
+  }
+  .main-navigation {
+    ul.menu a {
+      display: inline-block;
+      color: #FFF;
+    }
+    ul.menu > li,
+    ul.menu > li > a {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    ul.menu > li {
+      margin: 6px 0;
+      transition: all ease .5s;
+      opacity: 0;
+      transform: translateX(-100vw);
+      // @include animateThis(1s);
+    }
+    ul.menu li > a {
+      color: #FFF;
+      font-size: 8vw;
+    }
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden;
+    #navigation {
+      width: 100%;
+      padding: 20vh 0;
+      opacity: 1;
+      background: rgba(0,0,0,.95);
+      z-index: 190;
+      overflow: auto;
+      ul.menu > li {
+        transition-delay: 0.53s;
+        opacity: 1;
+        transform: translateX(0);
+      }
+      ul.menu li#head-cta-btn {
+        margin: 0 0;
+        padding: 15px 10vw;
+      }
+    }
+  }
+}
+
+.single-page-header {
+  // background-image: url('assets/images/blue-pattern.png');
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-color: $color_text_main;
+  position: relative;
+  min-height: 20em;
+  * {
+    color: #FFF;
+  }
+  @include tab {
+    min-height: 30em;
+  }
+  .title-inner {
+    max-width: 85%;
+    width: 100%;
+    padding: 0 0;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    .wrap {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    a.view-all-btn {
+      display: inline-block;
+      position: absolute;
+      top: -45px;
+      left: 8px;
+    }
+  }
+
+  h1 {
+    font-family: $font_secondary;
+    font-size: 4em;
+    font-weight: 500;
+    line-height:1.2;
+    margin: 0 0;
+    text-transform: none;
+    color: #FFF;
+  }
+  .date {
+    font-size: 20px;
+    font-weight: 500;
+    a {
+      display: inline-block;
+      text-decoration: none;
+      &:hover {
+        opacity: 0.65;
+      }
+    }
+    span {
+      display: inline-block;
+      margin: 0 10px;
+    }
+  }
+  @include max(768px) {
+    .title-inner a.view-all-btn {
+      position: relative;
+      top: 0;
+      transform: scale(0.8);
+    }
+  }
+}
+
+.theme-btn {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  background-image:url('assets/images/button.svg');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  color: #FFF;
+  font-size: 22px;
+  line-height: 1;
+  padding: 12px 30px;
+  span {
+    display: inline-block;
+    transform: skew(-15deg);
+  }
+  &:hover {
+    color: #FFF;
+    background-image:url('assets/images/button-hover.svg');
+  }
+}
+
+.middle-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 5;
+}
+
+.page-header {
+  min-height: 350px;
+  background: $color_text_main;
+  text-align: center;
+  padding-top: 0;
+  position: relative;
+  background-image:url('assets/images/blue-pattern.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 85px;
+  @include flexgroup();
+  @include flexbox-justify(center);
+  @include flexbox-align-items(flex-end);
+  &:before {
+    content:"";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
+  }
+  .wrapper {
+    position: relative;
+    z-index: 10;
+  }
+  .page-title {
+    width: 100%;
+    margin:0 0;
+    text-align: left;
+    font-family: $font_secondary;
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1.2;
+    color: $bgcolor;
+    text-transform: uppercase;
+    position: relative;
+    top: 20px;
+    // position: absolute;
+    // left: 0;
+    // bottom: 0;
+    // color: $bgcolor;
+    // max-width: 900px;
+    // width: 100%;
+    // margin: 0 auto;
+    // padding: 0 20px;
   }
 }
 
 
+
+.default-template {
+  .entry-content {
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 80px 30px;
+    @media screen and (min-width:1030px) and (max-width:1300px) {
+      padding-left: 15vw;
+    }
+  }
+  .wp-block-image {
+    figure.size-full {
+      width: 100%;
+      display: block;
+      margin: 0 0 50px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  h2 {
+    font-family: $font_secondary;
+    font-size: 2.3em;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $gold;
+    margin: 0 0 30px;
+  }
+
+  .wp-block-separator {
+    margin: 3em 0;
+    // background-image:url('assets/images/divider-teal.svg');
+    // background-position: left center;
+    // background-size: 200px;
+    // background-repeat: no-repeat;
+    // border-top: none;
+    // border-bottom: none;
+    // height: 8px;
+  }
+}
+
+/* EVENTS ARCHIVE PAGE */
+body.post-type-archive-tribe_events {
+  background-color: $bgcolor;
+  .tribe-events-pro-photo__event-featured-image-wrapper {
+    width: 100%;
+    float: left;
+    a {
+      display: block;
+      width: 100%;
+      float: left;
+      position: relative;
+      .thumbnail {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include backgroundImage(center);
+      }
+      img.helper {
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+    }
+  }
+  .tribe-events-pro-photo {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .tribe-events-pro-photo__event-details-wrapper {
+    width: 100%;
+    float: left;
+  }
+  .tribe-common--breakpoint-medium.tribe-common .tribe-common-g-row--gutters>.tribe-common-g-col {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .tribe-events-pro-photo__event-details {
+    position: relative;
+    h3.tribe-events-event-title {
+      font-family: $font_secondary;
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 1;
+      padding-top: 14px;
+      padding-right: 50px;
+      margin-bottom: 14px;
+      &:hover {
+        border-bottom: none!important;
+      }
+      a {
+        display: inline-block;
+        color: $gold;
+        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+          border-bottom: none!important;
+        }
+      }
+    }
+    .tribe-common .tribe-common-c-svgicon,
+    .tribe-events-pro-photo__event-datetime-featured-text {
+      color: $orange;
+    }
+    .tribe-common-c-svgicon--featured path {
+      fill: $orange!important;
+    }
+    .term-symbol {
+      display: block;
+      text-decoration: none;
+      width: 50px;
+      height: 50px;
+      background-color: #FFF;
+      border-radius: 100%;
+      position: absolute;
+      top: -35px;
+      right: 20px;
+      text-align: center;
+      color: #000;
+      b {
+        display: block;
+        color: #000;
+        width: 100%;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+  .tribe-events-pro-photo__event-datetime {
+    * {
+      font-family: $font_primary;
+      font-size: 16px;
+      font-weight: 500;
+      color: $color_text_main;
+    }
+    time, span {
+      color: $color_text_main;
+    }
+  }
+  .tribe-events-calendar-list__event-venue {
+    position: relative;
+    top: -5px;
+    * {
+      color: $color_text_main;
+    }
+  }
+  .category {
+    a {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight:bold;
+      line-height: 1.1;
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+  .tribe-events-calendar-list__event-venue {
+    font-family: $font_primary;
+    * {
+      font-size: 16px;
+      font-weight:500;
+    }
+  }
+
+  .tribe-common .tribe-common-c-btn-border, .tribe-common a.tribe-common-c-btn-border {
+    background-color: transparent;
+  }
+
+
+  /* LIST MODE */
+  .tribe-events-calendar-list {
+    .tribe-events-calendar-list__event-details {
+      @include tab {
+        padding-right: 4vw!important;
+      }
+    }
+    .tribe-events-calendar-list__event-datetime,
+    .tribe-events-calendar-list__event-description {
+      font-family: $font_primary;
+      color: $color_text_main;
+      * {
+        font-weight: 500;
+      }
+    }
+    .tribe-events-calendar-list__event-datetime * {
+      font-weight: bold;
+    }
+    .tribe-events-list-category {
+      a {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+    h3.tribe-events-calendar-list__event-title {
+      font-family: $font_secondary;
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 1;
+      padding-top: 5px;
+      padding-right: 50px;
+      margin-bottom: 14px;
+      &:hover {
+        border-bottom: none!important;
+      }
+      a {
+        display: inline-block;
+        color: $gold;
+        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+          border-bottom: none!important;
+        }
+      }
+    }
+    .tribe-events-calendar-list__event-date-tag-datetime {
+      &:after {
+        background-color: $orange!important;
+      }
+    }
+    .tribe-events-calendar-list__event-featured-image-wrapper {
+      a {
+        display: block;
+        width: 100%;
+        float: left;
+        position: relative;
+        img.helper {
+          width: 100%;
+          height: auto;
+          float: left;
+        }
+        .thumbnail {
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          @include backgroundImage(center);
+        }
+      }
+    }
+    .tribe-events-calendar-list__event-datetime-featured-text,
+    .tribe-common-c-svgicon {
+      color: $orange;
+    }
+    .term-symbol {
+      display: block;
+      text-decoration: none;
+      width: 50px;
+      height: 50px;
+      background-color: #FFF;
+      border-radius: 100%;
+      position: absolute;
+      bottom: 20px;
+      left: -25px;
+      text-align: center;
+      color: #000;
+      z-index: 5;
+      b {
+        display: block;
+        color: #000;
+        width: 100%;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+    @include max($tabwidth) {
+      .term-symbol {
+        bottom: -20px;
+        left: unset;
+        right: 20px;
+      }
+    }
+  }
+
+  .tribe-events-calendar-list {
+    .tribe-events-calendar-list__event-datetime-wrapper,
+    .tribe-events-calendar-list__event-venue {
+      font-family: $font_primary;
+      font-size: 16px;
+      line-height: 1.2;
+      position: relative;
+    }
+    .tribe-event-date {
+      font-size: 16px;
+      line-height: 1.2;
+      color: $color_text_main;
+    }
+    .tribe-events-calendar-list__event-venue {
+      top: -8px;
+    }
+  }
+
+  .page-header .middle-container {
+    max-width: 1220px;
+  }
+}
+
+.tribe-events-c-nav__list,
+.tribe-events-pro-photo-nav.tribe-events-c-nav {
+  li {
+    * {
+      color: $darkblue;
+    }
+    svg {
+      transition: all ease .3s;
+    }
+    svg path {
+      fill: $darkblue!important;
+    }
+    &.tribe-events-c-nav__list-item--prev {
+      a:hover svg {
+        transform: translateX(-3px);
+      }
+    }
+    &.tribe-events-c-nav__list-item--next {
+      a:hover svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+}
+
+/* EVENT SINGLE */
+body.single-tribe_events {
+  background-color: #FFF;
+  #tribe-events-pg-template {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 0;
+  }
+  .gallery-slider-content,
+  .tribe-events-single-event-description-wrap {
+    background-color: $bgcolor;
+  }
+  .single-main-wrap {
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+  .tribe-events-content,
+  .gallery-slide-wrap,
+  .tribe-meta-inner {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .tribe-events-single-event-description.tribe-events-content {
+    padding-top: 25px;
+    padding-bottom: 40px;
+  }
+  .no-gallery .tribe-events-single-event-description.tribe-events-content {
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  .tribe-events-c-subscribe-dropdown {
+    display: none;
+  }
+  .tribe-meta-inner {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .tribe-events-related-events-title {
+    border-top: none;
+  }
+
+  .gallery-slide-wrap {
+    position: relative;
+    #gallery-slider {
+      position: relative;
+      top: -70px;
+      overflow: hidden;
+      .swiper-wrapper, .swiper-slide, .slide-image {
+        width: 100%;
+        float: left;
+      }
+      .slide-image {
+        overflow: hidden;
+        @include backgroundImage(center);
+        background-color: #CCC;
+        img {
+          width: 100%;
+          height: auto;
+          float: left;
+        }
+      }
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      margin-top: -70px;
+      &:after {
+        color: #000;
+        font-size: 30px;
+      }
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    .swiper-pagination {
+      display: none;
+    }
+    .swiper-button-prev {
+      left: -5vw;
+    }
+    .swiper-button-next {
+      right: -5vw;
+    }
+  }
+  .hentry {
+    position: relative;
+    top: -35px;
+    z-index: 20;
+    .tribe-events-content {
+      font-family: $font_primary;
+      color: $color_text_main;
+    }
+  }
+  .tribe-events-related-events-title {
+    font-family: $font_secondary;
+    font-weight: 600;
+    font-size: 25px;
+    line-height:1.1;
+    text-transform: uppercase;
+    color: $gold;
+    position: relative;
+    padding-top: 80px;
+    &:before {
+      content:"";
+      display: block;
+      width: 100%;
+      height: 5px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: url('assets/images/divider-long-teal.svg');
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+  }
+
+  .tribe-events-event-meta.secondary.tribe-clearfix {
+    margin: 30px 0;
+  }
+
+  .tribe-events-event-meta {
+    width: 100%;
+    &:before {
+      display: none;
+    }
+  }
+
+  .tribe-events-single-section-title {
+    font-family: $font_secondary;
+    font-size: 25px;
+    font-weight: 600;
+    line-height:1.1;
+    color: $gold;
+    margin:0 0 20px;
+  }
+  .tribe-events-meta-group {
+    dl * {
+      font-family: $font_primary;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: $color_text_main;
+    }
+    dt {
+      font-weight: bold;
+      margin: 0 0;
+    }
+    dd {
+      margin-bottom: 30px;
+      a {
+        color: $blue;
+        text-decoration: none;
+        &:hover {
+          color: tint($blue,30%);
+        }
+      }
+    }
+    abbr {
+      outline: none;
+      text-decoration: none;
+    }
+    // dd.tribe-venue a {
+    //   color: $color_text_main;
+    //   font-weight: bold;
+    // }
+    dd.tribe-venue,
+    dd.tribe-organizer {
+      margin-bottom: 0;
+      a {
+        color: $color_text_main;
+        font-weight: bold;
+      }
+    }
+    dd.tribe-organizer-url {
+      margin: 2px 0 0;
+      // a {
+      //   font-size: 14px;
+      // }
+    }
+  }
+  .tribe-events-meta-group-organizer {
+    width: 100%;
+  }
+  .tribe-events-venue-map {
+    width: 100%;
+    margin: 50px 0 20px;
+  }
+  .tribe-events-venue-map>div {
+    max-height: 320px;
+  }
+  .tribe-events-single ul.tribe-related-events li .tribe-related-events-thumbnail {
+    margin-bottom: 25px;
+  }
+  .tribe-events-single ul.tribe-related-events li .tribe-related-events-thumbnail a {
+    padding-top: 0;
+  }
+  .tribe-events-single ul.tribe-related-events li .tribe-related-events-thumbnail img {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+  .tribe-venue-location {
+    .tribe-country-name,
+    .tribe-events-gmap {
+      display: none;
+    }
+  }
+  .tribe-related-events {
+    .tribe-related-events-thumbnail {
+      position: relative;
+    }
+    .tribe-related-events-thumbnail,
+    .tribe-related-events-thumbnail a,
+    .tribe-related-events-thumbnail img {
+      display: block;
+      width: 100%;
+      float: left;
+    }
+    .tribe-related-events-thumbnail a {
+      background-color: #CCC;
+      position: relative;
+      overflow: hidden;
+      .thumbnail {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include backgroundImage(center);
+      }
+    }
+    .tribe-related-events-thumbnail img {
+      height: auto;
+    }
+    .term-symbol {
+      display: block;
+      text-decoration: none;
+      width: 50px;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 100%;
+      position: absolute;
+      bottom: -25px;
+      right: 20px;
+      text-align: center;
+      color: #000;
+      b {
+        display: block;
+        color: #000;
+        width: 100%;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+    .tribe-related-event-info {
+      * {
+        font-family: $font_primary;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: $darkblue;
+        text-decoration: none;
+      }
+      .tribe-event-dates, 
+      .tribe-event-venue {
+        display: block;
+        width: 100%;
+      }
+    }
+    .tribe-related-events-title {
+      margin: 0 0 10px!important
+    }
+    .tribe-related-events-title a {
+      font-family: $font_secondary;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.1;
+      color: $gold!important;
+    }
+    .category {
+      display: block;
+      width: 100%;
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .event-featured-image {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    top: -70px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .tribe-events-schedule {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 0;
+    padding: 0 0;
+    position: relative;
+    .recurringinfo {
+      margin: 30px 0;
+      background: #FFF;
+    }
+    h2 {
+      display: none!important;
+    }
+  }
+
+  .tribe-organizer {
+    a {
+      font-weight: bold;
+    }
+  }
+
+  dd.get-tickets-link {
+    a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: $orange;
+      border: 1px solid $orange;
+      padding: 10px 15px 11px;
+      min-width: 150px;
+      text-align: center;
+      border-radius: 100px;
+      color: #fff !important;
+      font-family: $font_secondary;
+      font-size: 15px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #FFF;
+        color: $orange!important;
+      }
+    }
+  }
+
+  @include max(480px) {
+    .tribe-events-single-section-title {
+      margin-top: 30px;
+    }
+    .tribe-events-meta-group {
+      flex: none;
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+  @include max(768px) {
+    .tribe-meta-inner {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .tribe-events-meta-group {
+      text-align: center;
+    }
+    #tribe-events-content {
+      overflow: visible;
+    }
+    .tribe-events-single-section-title {
+      margin-top: 35px;
+      margin-bottom: 18px;
+    }
+  }
+}
