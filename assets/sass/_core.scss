@@ -1565,11 +1565,11 @@ body.logged-in.admin-bar {
 }
 
 .single-page-header {
-  // background-image: url('assets/images/blue-pattern.png');
+  background-image: url('assets/images/blue-pattern.png');
   background-position: center;
   background-repeat: repeat-y;
   background-size: cover;
-  background-color: $color_text_main;
+  background-color: $darkblue;
   position: relative;
   min-height: 20em;
   * {
@@ -2059,7 +2059,7 @@ body.post-type-archive-tribe_events {
 
 /* EVENT SINGLE */
 body.single-tribe_events {
-  background-color: #FFF;
+  background-color: $bgcolor;
   #tribe-events-pg-template {
     max-width: 100%;
     width: 100%;
@@ -2067,6 +2067,9 @@ body.single-tribe_events {
   }
   .gallery-slider-content,
   .tribe-events-single-event-description-wrap {
+    background-color: $yellow;
+  }
+  .tribe-meta-wrapper {
     background-color: $bgcolor;
   }
   .single-main-wrap {
@@ -2153,7 +2156,7 @@ body.single-tribe_events {
     z-index: 20;
     .tribe-events-content {
       font-family: $font_primary;
-      color: $color_text_main;
+      color: #000;
     }
   }
   .tribe-events-related-events-title {
