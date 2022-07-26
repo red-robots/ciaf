@@ -4,13 +4,14 @@ $color_link: #173D6E;
 $color_link_visited: purple;
 $color_link_hover: midnightblue;
 $color_text_main: #262628;
-$primary_color: #CBB95F;
+//$primary_color: #CBB95F;
+$primary_color: #C6B14A;
 $secondary_color: #1299a8;
 $red: #e43847;
 $gold: #9B8D29;
 $blue: #005495;
 
-$bgcolor: #E5E3D5;
+$cream: #E5E3D5;
 $orange: #e64e1f;
 $yellow: #cab837;
 $teal: #09a2b3;
@@ -22,7 +23,8 @@ $light_teal: #d9eff2;
 
 
 $font_primary: 'Fira Sans Condensed', sans-serif;
-$font_secondary: venn, sans-serif;
+$font_secondary: venn-semiextended,sans-serif;
+$font_condensed: venn-condensed,sans-serif;
 $font_code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 $font_pre: "Courier 10 Pitch", Courier, monospace;
 

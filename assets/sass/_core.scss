@@ -35,7 +35,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: $color_text_main;
-  background-color: $bgcolor;
+  background-color: $cream;
   position: relative;
   @include tab {
     font-size: 14px;
@@ -124,8 +124,8 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  background: $bgcolor;
-  z-index: 100;
+  background: $cream;
+  z-index: 200;
   .wrapper {
     max-width: 85%;
     width: 100%;
@@ -263,7 +263,7 @@ a {
   padding-top: 85px;
   position: relative;
   z-index: 10;
-  border-bottom: 20px solid $bgcolor;
+  border-bottom: 20px solid $cream;
   @include max( $xswidth ) {
     overflow: hidden;
     border-bottom: none;
@@ -299,10 +299,12 @@ a {
   }
   .t1, .t2, .t3 {
     font-family: $font_secondary;
-    color: #FFF;
+    color: $cream;
   }
   .t1 {
-    font-size: 4.5vh;
+    font-family: $font_condensed;
+    font-weight: 600;
+    font-size: 8vh;
     line-height: 1.1;
     letter-spacing: 1px;
     animation-duration: 2s;
@@ -420,7 +422,7 @@ a {
 .section {
   width: 100%;
   float: left;
-  background: $bgcolor;
+  background: $cream;
   min-height: 20em;
   position: relative;
   z-index: 10;
@@ -429,24 +431,16 @@ a {
   }
 }
 .section-wander {
-  background: $bgcolor;
+  background: $cream;
   font-size: 2em;
   font-weight: 400;
   line-height: 1.4;
+  z-index: 55;
   @include max( $xswidth ) {
     font-size: 1.5em;
   }
-  h2 {
-    font-family: $font_secondary;
-    font-size: 2.1em;
-    font-weight: 700;
-    line-height: 1.2;
-    color: $gold;
-    margin: 0 0;
-    @include max( $xswidth ) {
-      font-size: 1.8em;
-      line-height: 1.1;
-    }
+  .section-title {
+    margin:0 0 5px;
   }
   .wrapper {
     padding-top: 150px;
@@ -470,7 +464,7 @@ a {
 .featured-events {
   width: 100%;
   float: left;
-  background: $bgcolor;
+  background: $cream;
   overflow: hidden;
   min-height: 40em;
   position: relative;
@@ -704,7 +698,7 @@ a {
 #upcoming-events {
   width: 100%;
   float: left;
-  background: $bgcolor;
+  background: $cream;
   .section-title {
     font-size: 3em;
     @include max( $xswidth ) {
@@ -910,7 +904,7 @@ body.logged-in.admin-bar {
   background-repeat: repeat-x;
   min-height: 30em;
   position: relative;
-  z-index: 300;
+  z-index: 100;
   .wrapper {
     padding-top: 8vw;
     padding-bottom: 12vw;
@@ -1418,7 +1412,7 @@ body.logged-in.admin-bar {
     display: inline-block;
     position: absolute;
     top: 0;
-    right: 0;
+    right: -2px;
     font-family: $font_secondary;
     font-size: 20px;
     font-weight: bold;
@@ -1427,9 +1421,10 @@ body.logged-in.admin-bar {
     background: $red;
     border:1px solid $red;
     padding: 10px 35px;
-    color: #FFF;
+    color: $cream;
     text-decoration: none;
     &:hover {
+      background-color: transparent;
       color: $red;
     }
     @include max( $xswidth ) {
@@ -1571,7 +1566,7 @@ body.logged-in.admin-bar {
   background-size: cover;
   background-color: $darkblue;
   position: relative;
-  min-height: 20em;
+  min-height: 25em;
   * {
     color: #FFF;
   }
@@ -1579,7 +1574,7 @@ body.logged-in.admin-bar {
     min-height: 30em;
   }
   .title-inner {
-    max-width: 85%;
+    max-width: 100%;
     width: 100%;
     padding: 0 0;
     margin: 0 auto;
@@ -1592,23 +1587,42 @@ body.logged-in.admin-bar {
       max-width: 1000px;
       width: 100%;
       margin: 0 auto;
+      padding:0 20px;
     }
     a.view-all-btn {
       display: inline-block;
       position: absolute;
-      top: -45px;
-      left: 8px;
+      top: -40px;
+      left: -2px;
+      font-family: $font_secondary;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.2;
+      text-transform: uppercase;
+      background: $red;
+      border:1px solid $red;
+      padding: 10px 35px;
+      color: $cream;
+      text-decoration: none;
+      &:hover {
+        background-color: transparent;
+        border-color: $cream!important;
+        color: $cream;
+      }
     }
   }
 
   h1 {
     font-family: $font_secondary;
-    font-size: 4em;
+    font-size: 10vw;
     font-weight: 500;
-    line-height:1.2;
+    line-height:1.1;
     margin: 0 0;
     text-transform: none;
     color: #FFF;
+    @include tab {
+      font-size: 4em;
+    }
   }
   .date {
     font-size: 20px;
@@ -1629,7 +1643,9 @@ body.logged-in.admin-bar {
     .title-inner a.view-all-btn {
       position: relative;
       top: 0;
+      left: 0;
       transform: scale(0.8);
+      margin-bottom: 30px;
     }
   }
 }
@@ -1638,17 +1654,17 @@ body.logged-in.admin-bar {
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  background-image:url('assets/images/button.svg');
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
+  // background-image:url('assets/images/button.svg');
+  // background-position: center;
+  // background-size: 100%;
+  // background-repeat: no-repeat;
+
   color: #FFF;
   font-size: 22px;
   line-height: 1;
   padding: 12px 30px;
   span {
     display: inline-block;
-    transform: skew(-15deg);
   }
   &:hover {
     color: #FFF;
@@ -1665,6 +1681,7 @@ body.logged-in.admin-bar {
   z-index: 5;
 }
 
+
 .page-header {
   min-height: 350px;
   background: $color_text_main;
@@ -1676,6 +1693,8 @@ body.logged-in.admin-bar {
   background-position: center;
   background-repeat: no-repeat;
   margin-top: 85px;
+  border-left: 20px solid $cream;
+  border-right: 20px solid $cream;
   @include flexgroup();
   @include flexbox-justify(center);
   @include flexbox-align-items(flex-end);
@@ -1702,31 +1721,32 @@ body.logged-in.admin-bar {
     margin:0 0;
     text-align: left;
     font-family: $font_secondary;
-    font-size: 5em;
+    font-size: 5.5em;
     font-weight: bold;
     line-height: 1.2;
-    color: $bgcolor;
+    color: $cream;
     text-transform: uppercase;
     position: relative;
     top: 20px;
-    // position: absolute;
-    // left: 0;
-    // bottom: 0;
-    // color: $bgcolor;
-    // max-width: 900px;
-    // width: 100%;
-    // margin: 0 auto;
-    // padding: 0 20px;
+    @include max($xswidth) {
+      font-size: 14vw;
+    }
   }
 }
 
 
+#primary {
+  position: relative;
+  z-index: 105;
+}
 
 .default-template {
   .entry-content {
     font-size: 18px;
     line-height: 1.5;
     padding: 80px 30px;
+    position: relative;
+    z-index: 10;
     @media screen and (min-width:1030px) and (max-width:1300px) {
       padding-left: 15vw;
     }
@@ -1754,19 +1774,13 @@ body.logged-in.admin-bar {
 
   .wp-block-separator {
     margin: 3em 0;
-    // background-image:url('assets/images/divider-teal.svg');
-    // background-position: left center;
-    // background-size: 200px;
-    // background-repeat: no-repeat;
-    // border-top: none;
-    // border-bottom: none;
-    // height: 8px;
   }
 }
 
+
 /* EVENTS ARCHIVE PAGE */
 body.post-type-archive-tribe_events {
-  background-color: $bgcolor;
+  background-color: $cream;
   .tribe-events-pro-photo__event-featured-image-wrapper {
     width: 100%;
     float: left;
@@ -2059,7 +2073,7 @@ body.post-type-archive-tribe_events {
 
 /* EVENT SINGLE */
 body.single-tribe_events {
-  background-color: $bgcolor;
+  background-color: $cream;
   #tribe-events-pg-template {
     max-width: 100%;
     width: 100%;
@@ -2070,7 +2084,7 @@ body.single-tribe_events {
     background-color: $yellow;
   }
   .tribe-meta-wrapper {
-    background-color: $bgcolor;
+    background-color: $cream;
   }
   .single-main-wrap {
     max-width: 100%;
@@ -2442,5 +2456,124 @@ body.single-tribe_events {
       margin-top: 35px;
       margin-bottom: 18px;
     }
+  }
+}
+
+.top-shapes, .bottom-shapes {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  .inner {
+    max-width: 1200px;
+    width: 100%;
+    margin:0 auto;
+    position: relative;
+    span {
+      display: block;
+      width: 80px;
+      height: 80px;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      @include tab {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+.top-shapes {
+  top: 0;
+  .shape1 {
+    top: -65px;
+    left: 0;
+    background-image: url('assets/images/shapes/star.svg');
+    @include max($xswidth) {
+      top: -35px;
+      left: -2px;
+    }
+  }
+  .shape2 {
+    top: 1px;
+    left: 32px;
+    background-image: url('assets/images/shapes/bubble.svg');
+  }
+}
+.bottom-shapes {
+  bottom: 18px;
+  padding:0 30px;
+  .shape3 {
+    bottom: -50px;
+    right: 0;
+    background-image: url('assets/images/shapes/nonagon.svg');
+  }
+}
+
+.right-shapes, .left-shapes {
+  display: inline-block;
+  position: absolute;
+  span {
+    display: block;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transition: all ease .3s;
+    @include tab {
+      width: 140px;
+      height: 140px;
+    }
+  }
+}
+.left-shapes {
+  top: 20vh;
+  left: -18vw;
+  .span1 {
+    background-image: url('assets/images/shapes/square-2.svg');
+    // transform: scale(0.85) rotate(54deg);
+  }
+  .span2 {
+    background-image: url('assets/images/shapes/bubble.svg');
+    left: 5vw;
+    top: 5vh;
+    transform: scale(1.1) rotateY(180deg);
+  }
+  .span3 {
+    background-image: url('assets/images/shapes/triangle.svg');
+    left: 10vw;
+    top: 28vh;
+    transform: rotate(-20deg);
+  }
+}
+.right-shapes {
+  top: 5vh;
+  right: 0;
+  .span4 {
+    background-image: url('assets/images/shapes/star.svg');
+    left: -2vw;
+  }
+  .span5 {
+    background-image: url('assets/images/shapes/bubble.svg');
+    top: 9vh;
+    right: -16vh;
+  }
+}
+
+.typewrite {
+  border-right: 3px solid #666;
+  animation: cursor_blinking 1s steps(1) infinite;
+  span {
+    display: inline-block;
+    position: relative;
+    padding-right: 3px;
+  }
+}
+
+@keyframes cursor_blinking {
+  50% {
+    border-color: transparent;
   }
 }

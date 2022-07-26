@@ -1,5 +1,3 @@
-</div><!-- #site -->
-
 <?php
 $footer_copyright = get_field('footer_copyright','option');
 $copyright = ($footer_copyright) ? $footer_copyright : get_bloginfo('name');
@@ -71,6 +69,8 @@ $p_logos = (isset($footer_partners['logos']) && $footer_partners['logos']) ? $fo
     </div>
   </div>
 </footer><!-- #colophon -->
+
+</div><!-- #site -->
 
 <?php wp_footer(); ?>
 </body>

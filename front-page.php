@@ -79,10 +79,36 @@
   </section>
 
 
-  <?php if( $home_intro = get_field('home_intro') ) { ?>
+  <?php if( $home_intro = get_field('home_intro') ) { 
+  $animated_title = get_field('home_title_animated');
+  $intro_titles = array();
+  if($animated_title) {
+    foreach($animated_title as $a) {
+      $intro_titles[] = $a['title'];
+    }
+  }
+  $titles_json = ($intro_titles) ? @json_encode($intro_titles) : '';
+  ?>
   <section class="section section-wander">
-    <div class="wrapper medium fadeInUp wow" data-wow-duration="1s" data-wow-delay="1s">
-      <?php echo $home_intro ?>
+    <div class="wrapper medium fadeInUp wow" >
+      <div class="left-shapes">
+        <span class="span1 wow swing" data-wow-delay="0.4s"></span>
+        <span class="span2 wow bounce" data-wow-delay="0.5s"></span>
+        <span class="span3 wow rotateIn" data-wow-delay="0.6s"></span>
+      </div>
+      <div class="right-shapes">
+        <span class="span4 wow tada" data-wow-delay="0.7s"></span>
+        <span class="span5 wow bounce" data-wow-delay="0.75s"></span>
+      </div>
+
+      <div class="info" data-wow-duration="1s" data-wow-delay="1s">
+        <?php if ($titles_json) { ?>
+       <div class="section-title">
+         <b class="typewrite" data-period="2000" data-type='<?php echo $titles_json ?>'><span class="wrap"></span></b>
+       </div> 
+        <?php } ?>
+        <?php echo $home_intro ?>
+      </div>
     </div>
   </section>
   <?php } ?>

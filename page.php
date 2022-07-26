@@ -23,14 +23,25 @@ get_header(); ?>
 
     <header class="page-header"<?php echo $header_bg ?>>
       <div class="middle-container">
-        <h1 class="page-title"><?php the_title(); ?></h1>
+        <h1 class="page-title animated fadeInRight"><?php the_title(); ?></h1>
       </div>
     </header>
 
-
     <section class="entry-content">
-      <div class="middle-container">
+
+      <div class="top-shapes">
+        <div class="inner">
+          <span class="shape1 wow rollIn" data-wow-delay="0.3s"></span>
+          <span class="shape2 wow jackInTheBox" data-wow-delay="0.5s"></span>
+        </div>
+      </div>
+
+      <div class="middle-container wow fadeIn" data-wow-delay="0.4s">
         <?php the_content(); ?>
+      </div>
+
+      <div class="bottom-shapes">
+        <div class="inner"><span class="shape3 wow jackInTheBox" data-wow-delay="0.6s"></span></div>
       </div>
     </section>
 	<?php endwhile; ?>	

@@ -103,7 +103,7 @@ if($images) {
 
 <header class="single-page-header">
   <div class="title-inner">
-    <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><span><?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></span></a>
+    <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( '' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
     <div class="wrap">
       <h1><?php the_title() ?></h1>
       <div class="date">
