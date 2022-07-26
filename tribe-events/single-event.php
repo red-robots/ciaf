@@ -63,22 +63,29 @@ $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $befo
 
 $start = tribe_get_start_date($event_id,null,'M d');
 $end = tribe_get_end_date($event_id,null,'M d');
-// $start_time = tribe_get_start_date($event_id,null,'g:ia');
-// $end_time = tribe_get_end_date($event_id,null,'g:ia');
-$start_time = tribe_get_start_time($event_id,false,'g:ia');
-$end_time = tribe_get_end_time($event_id,false,'g:ia');
+$start_time = tribe_get_start_date($event_id,null,'g:ia');
+$end_time = tribe_get_end_date($event_id,null,'g:ia');
+
+$start_time_i = tribe_get_start_time($event_id,false,'g:ia');
+$end_time_i = tribe_get_end_time($event_id,false,'g:ia');
 $event_dates = $start;
 if($start!=$end) {
 $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
 }
-if($start_time || $end_time) {
-$st = str_replace(':00','',$start_time);
-$et = str_replace(':00','',$end_time);
-$times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
-if($event_dates) {
-  $event_dates .= ' <span>|</span> ' . $times;
-} 
+
+
+if($start_time_i || $end_time_i) {
+  $st = str_replace(':00','',$start_time);
+  $et = str_replace(':00','',$end_time);
+  $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
+  if($start_time==$end_time) {
+    $times = $start_time;
+  }
+  if($event_dates) {
+    $event_dates .= ' <span>|</span> ' . $times;
+  } 
 }
+
 $event_start_format = tribe_get_start_date($event_id,null,'m.d.Y');
 $terms = wp_get_post_terms( $event_id, Tribe__Events__Main::TAXONOMY );
 $term = (isset($terms[0]) && $terms[0]) ? $terms[0] : '';
