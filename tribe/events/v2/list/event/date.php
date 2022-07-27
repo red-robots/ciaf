@@ -41,8 +41,11 @@ if($start_time_i || $end_time_i) {
   if($start_time==$end_time) {
     $times = $start_time;
   }
-  if($event_dates) {
-    $event_dates .= ' <span>|</span> ' . $times;
+
+  if($start==$end) {
+    if($event_dates) {
+      $event_dates .= ' <span>|</span> ' . $times;
+    }
   } 
 }
 

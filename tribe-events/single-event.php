@@ -106,6 +106,7 @@ if($images) {
   }
 }
 
+$show_date = false;
 ?>
 
 <header class="single-page-header">
@@ -113,12 +114,14 @@ if($images) {
   <div class="title-inner">
     <div class="wrap">
       <h1><?php the_title() ?></h1>
+      <?php if ($show_date) { ?>
       <div class="date">
         <?php echo $event_dates ?>
         <?php if ($event_dates && $term) { ?>
         <span>|</span> <a href="<?php echo $term_link ?>" style="color:<?php echo $catColor ?>"><?php echo $term_name ?></a>
         <?php } ?>
       </div>
+      <?php } ?>
     </div>
   </div>
 </header>
