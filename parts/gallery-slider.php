@@ -8,7 +8,7 @@
           <?php foreach ($images as $img) { ?>
             <div class="swiper-slide">
               <div class="slide-image" style="background-image:url('<?php echo $img['url'] ?>')">
-                <img src="<?php echo IMAGES_URL ?>/rectangle-lg.png" alt="" class="helper">
+                <img src="<?php echo IMAGES_URL ?>/slider-resizer.png" alt="" class="helper">
               </div>
             </div>
           <?php } ?>

@@ -6,13 +6,8 @@
 get_header(); ?>
 <div id="primary" class="content-area default-template">
 	<?php while ( have_posts() ) : the_post(); ?>
-  <?php  
-    $header_image = get_field('header_image');
-    $header_bg = ($header_image) ? ' style="background-image:url('.$header_image['url'].')"' : '';
-  ?>
-    <header class="page-header"<?php echo $header_bg ?>>
-      <h1 class="page-title"><span class="animated"><span class="rotated"><?php the_title(); ?></span></span></h1>
-    </header>
+
+    <?php include( locate_template('parts/hero-subpage.php') ); ?>
 
     <section class="entry-content">
       <?php if ( get_the_content() ) { ?>
@@ -72,11 +67,13 @@ get_header(); ?>
           $contact_form_heading = get_field('contact_form_heading');
           ?>
           <div class="contact-form-section">
-            <div class="wrapper">
-              <?php if ($contact_form_heading) { ?>
-               <h3><?php echo $contact_form_heading ?></h3> 
-              <?php } ?>
-              <?php echo do_shortcode($contact_form_shortcode); ?>
+            <div class="contact-inner">
+              <div class="wrapper">
+                <?php if ($contact_form_heading) { ?>
+                 <h3><?php echo $contact_form_heading ?></h3> 
+                <?php } ?>
+                <?php echo do_shortcode($contact_form_shortcode); ?>
+              </div>
             </div>
           </div>    
         <?php } ?>

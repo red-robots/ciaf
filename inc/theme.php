@@ -23,12 +23,13 @@ function my_login_logo() {
   if($logo_url) { ?>
   <style type="text/css">
     body.login {
-      background: rgb(26,35,126);
+      /*background: rgb(26,35,126);
       background: rgb(26,35,126);
       background: -moz-linear-gradient(-45deg,  rgba(26,35,126,1) 0%, rgba(11,143,183,1) 51%, rgba(39,206,192,1) 100%);
       background: -webkit-linear-gradient(-45deg,  rgba(26,35,126,1) 0%,rgba(11,143,183,1) 51%,rgba(39,206,192,1) 100%);
       background: linear-gradient(135deg,  rgba(26,35,126,1) 0%,rgba(11,143,183,1) 51%,rgba(39,206,192,1) 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a237e', endColorstr='#27cec0',GradientType=1 );
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a237e', endColorstr='#27cec0',GradientType=1 );*/
+      background: #e5e3d5;
     }
     body.login div#login h1 a {
       background-image: url(<?php echo $logo_url; ?>);
@@ -43,17 +44,17 @@ function my_login_logo() {
     }
     body.login #backtoblog a, 
     body.login #nav a {
-      color: #ffe990;
+      color: #cd1121;
       transition: all ease .3s;
     }
     body.login #backtoblog a:hover,
     body.login #nav a:hover {
-      color: #fdfff4;
+      color: #df652b;
     }
     body.login form {
       border: none;
       border-radius: 0;
-      box-shadow: 0 35px 40px rgba(0,0,0,0.08);
+      /*box-shadow: 0 40px 35px rgba(0,0,0,0.05);*/
     }
     body.login #login form p.submit {
       display: block;
@@ -66,15 +67,15 @@ function my_login_logo() {
       margin-top: 15px;
     }
     body.login.wp-core-ui .button-primary {
-      background: #eb5222;
-      border-color: #eb5222;
+      background: #E43847;
+      border-color: #E43847;
       font-weight: bold;
       text-transform: uppercase;
       transition: all ease .3s;
     }
     body.login.wp-core-ui .button-primary:hover {
-      background: #f99035;
-      border-color: #f99035;
+      background: #ff4959;
+      border-color: #ff4959;
     }
   </style>
 <?php }

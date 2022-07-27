@@ -1,3 +1,7 @@
+/*
+ * Date Modified: 07.27.2022
+ * Developer: Lisa DeBona
+*/
 div,h1,h2,h3,h4,h5,h6,p,li,a,span,strong {
   overflow-wrap: normal;
     word-wrap: normal;
@@ -485,6 +489,10 @@ a {
     @include max( $tabwidth ) {
       height: 40vh;
     }
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
   .col2 {
     z-index: 15;
@@ -679,7 +687,7 @@ a {
   position:absolute;
   top: 0;
   left: 0;
-  transform: scale(1.03);
+  // transform: scale(1.03);
   img.resizer {
     display: block;
     width: 100%;
@@ -2459,6 +2467,222 @@ body.single-tribe_events {
   }
 }
 
+
+/* CONTAC US */
+body.page-template-page-contact {
+  .default-template .entry-content {
+    background: $cream;
+    padding: 0 0;
+  }
+  .middle-container {
+    padding: 50px 20px 0;
+  }
+  .page-title .rotated {
+    color: $yellow;
+  }
+  .page-header {
+    .middle-container {
+      max-width: 1260px;
+    }
+  }
+  .contact-information {
+    padding:0 20px;
+    .flexwrap {
+      @include flexgroup();
+      @include flexbox-align-items(center);
+      .fcol {
+        width: 100%;
+        position: relative;
+      }
+      &.half {
+        .fcol {
+          @include tab {
+            width: 50%;
+          }
+        }
+      }
+    }
+    .googlemap {
+      background-color: #F1F1F1;
+      height: 100%;
+      position: relative;
+      img {
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      iframe {
+        width: 100%!important;
+        height: 100%!important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+        z-index: 10;
+      }
+    }
+
+    .contact_details {
+      .inner {
+        padding: 5vw 5vw 8vw;
+        @include tab {
+          padding-left: 15vw;
+        }
+      }
+      .contact-infos {
+        display: inline-block;
+        text-align: left;
+        @include tab {
+          min-width: 450px;
+        }
+        .info {
+          position: relative;
+          min-height: 45px;
+          margin: 15px 0;
+          @include flexgroup();
+          @include flexbox-justify(space-between);
+          @include flexbox-align-items(center);
+        }
+        .icon {
+          display: block;
+          width: 40px;
+          height: 40px;
+          // position: absolute;
+          // top: 0;
+          // left: 0;
+          @include backgroundImage(center);
+          background-color: transparent;
+        }
+        .text {
+          width: calc(100% - 50px);
+          line-height: 1.1;
+        }
+      }
+      .contact-heading {
+        font-family: $font_secondary;
+        font-size: 2.2em;
+        font-weight: 500;
+        line-height: 1.2;
+        text-transform: uppercase;
+        color: $green;
+        margin: 0 0 15px;
+      }
+      .text {
+        font-size: 1em;
+        font-weight: 500;
+        color: $darkblue;
+      }
+    }
+  }
+  .contact-form-section {
+    padding: 0 20px;
+    .contact-inner {
+      background: $purple;
+    }
+    .wrapper {
+      max-width: 1260px;
+      padding: 100px 30px 110px;
+    }
+    h3 {
+      font-family: $font_secondary;
+      font-size: 2.2em;
+      font-weight: 500;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: #FFF;
+      margin: 0 0 30px;
+    }
+    .gform_wrapper {
+      .ginput_container_textarea textarea,
+      .ginput_container input {
+        background-color: transparent;
+        border: 2px solid tint($purple,35%);
+        font-size: 20px;
+        line-height: 1.2;
+        color: #FFF;
+        padding: 5px 10px;
+        &:focus {
+          outline: none;
+          border-color: #FFF;
+        }
+      }
+      .ginput_container_textarea {
+        width: 100%!important;
+        textarea {
+          height: 150px;
+        }
+      }
+      .ginput_container input {
+        height: 50px;
+      }
+      .gfield_required {
+        display: none;
+      }
+      .gform_fields {
+        @include flexgroup();
+        @include flexbox-justify(space-between);
+        .gfield.message-field, .gfield--width-full {
+          width: 100%!important;
+        }
+        .gfield {
+          width: 100%;
+          position: relative;
+          margin: 5px 0;
+          @include xs {
+            width: 48%;
+          }
+          label.gfield_label {
+            margin: 0 0;
+            position: absolute;
+            top: 14px;
+            left: 15px;
+            transition: all ease .3s;
+            color: tint($purple,35%);
+            &.active {
+              color: #FFF;
+              top: -19px;
+              left: 0;
+              font-size: 13px;
+            }
+          }
+          .ginput_container {
+            position: relative;
+            z-index: 15;
+          }
+        }
+      }
+      .gform_footer.top_label {
+        width: 100%;
+        margin: 10px 0 0;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        input.gform_button {
+          -webkit-appearance:none;
+          outline: none;
+          border: none;
+          box-shadow: none;
+          border-radius: 0;
+          width: 150px;
+          height: 45px;
+          margin: 0 0;
+          position: relative;
+          top: 12px;
+          color: #FFF;
+          font-family: $font_secondary;
+          font-size: 20px;
+          background: #FFF;
+          color: $purple;
+          &:focus, &:hover {
+            box-shadow: 0 18px 25px rgba(0,0,0,0.23);
+          }
+        }
+      }
+    }
+  }
+}
+
+
 .top-shapes, .bottom-shapes {
   position: absolute;
   left: 0;
@@ -2577,3 +2801,5 @@ body.single-tribe_events {
     border-color: transparent;
   }
 }
+
+

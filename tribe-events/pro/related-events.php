@@ -70,7 +70,7 @@ if ( is_array( $posts ) && ! empty( $posts ) ) : ?>
           <?php if ($image_url) { ?>
             <span class="thumbnail" style="background-image:url('<?php echo esc_url( $image_url ); ?>')"></span>
           <?php } ?>
-          <img src="<?php echo IMAGES_URL ?>/square.png" alt="" class="helper">
+          <img src="<?php echo IMAGES_URL ?>/rectangle-lg.png" alt="" class="helper">
         </a>
         <?php if ($term) { ?>
         <span class="term-symbol" style="background-color:<?php echo $catColor2 ?>;"><b><?php echo $firstCharacter ?></b></span>

@@ -19,6 +19,11 @@ if ($featuredEvents) {
   $f_img = wp_get_attachment_image_src($f_thumb_id,'full');
   $default_image = ($f_img) ? $f_img[0] : '';
 
+  $home_image = get_field('event_home_image',$f_event_id);
+  if($home_image) {
+    $default_image = $home_image['url'];
+  }
+
   if($f_terms) {
     $default_firstChar = ($f_term->name) ? strtoupper(substr($f_term->name, 0, 1)) : '';
     $f_color = get_field('category_color', $f_term);
@@ -34,14 +39,15 @@ if($featuredEvents) { ?>
 <section class="section featured-events">
   <div class="flexwrap">
     <div class="col col1">
-      <div id="featured_event_imagecol"<?php echo $default_image_bg ?>></div>
-      <img src="<?php echo IMAGES_URL ?>/rectangle-lg.png" alt="" class="resizer">
+      <div id="featured_event_imagecol"<?php echo $default_image_bg ?>>
+        <img src="<?php echo IMAGES_URL ?>/home-image-resizer.png" alt="" class="resizer">
+      </div>
     </div>
 
     <div class="col col2">
       <div id="category-initial"<?php echo $default_color_style ?>><span><?php echo $default_firstChar ?></span></div>
       <div id="featured-events-posts">
-        <div id="swiper-vertical" class="swiper-container fadeIn wow" data-wow-duration="1s" data-wow-delay="1s">
+        <div id="swiper-vertical" class="swiper-container fadeIn wow" data-wow-duration="1s" data-wow-delay="0.5s">
           <div class="swiper-wrapper">
 
             <?php $ctr=1; foreach ($featuredEvents as $ev) { 
@@ -87,6 +93,12 @@ if($featuredEvents) { ?>
                 $img = wp_get_attachment_image_src($thumbnail_id,'full');
                 $img_src = ($img) ? $img[0]:'';
                 $first_slide = ($ctr==1) ? ' first':'';
+
+                $custom_image = get_field('event_home_image',$event_id);
+                if($custom_image) {
+                  $img_src = $custom_image['url'];
+                }
+
                 ?>
 
                 <div class="swiper-slide">
