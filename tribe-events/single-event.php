@@ -109,8 +109,8 @@ if($images) {
 ?>
 
 <header class="single-page-header">
+  <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( '' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
   <div class="title-inner">
-    <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( '' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
     <div class="wrap">
       <h1><?php the_title() ?></h1>
       <div class="date">
