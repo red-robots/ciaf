@@ -32,6 +32,9 @@ var currentURL = '<?php echo get_permalink();?>';
 var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
 </script>
 <?php wp_head(); ?>
+<?php if( $customScripts = get_field('header_custom_scripts','option') ) { ?>
+<?php echo $customScripts; ?>
+<?php } ?>
 </head>
 <body <?php body_class();?>>
   <a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>
