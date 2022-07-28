@@ -54,7 +54,85 @@ if($start_time_i || $end_time_i) {
   }
 }
 
+$post_id = $event->ID;
+$children = list_children_events($post_id);
+$the_dates = array();
+if($children) {
+  foreach($children as $id) {
+    $month = tribe_get_start_date($id,false,'M');
+    $day = tribe_get_start_date($id,false,'d');
+    $the_dates[$month][$day] = $day;
+  }
+}
 
+$current_year = date('Y');
+$monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+$current_calendar = [];
+for($i=1; $i<=12; $i++) {
+  $d=cal_days_in_month(CAL_GREGORIAN,$i, $current_year);
+  $x = $i-1;
+  $m = $monthList[$x];
+  $current_calendar[$m] = $d;
+}
+
+//$d=cal_days_in_month(CAL_GREGORIAN,2,2004);
+
+$recurring_dates = [];
+
+if($the_dates) {
+  foreach($the_dates as $month=>$dates) {
+    sort($dates);
+    $the_dates[$month] = $dates;
+    $max = count($dates);
+    $first = $dates[0];
+    $last = end($dates);
+    $n = $max - 1;
+    $compare = $first + ($max - 1);
+    $ranges = array_to_group_range($dates);
+    $recurring_dates[$month] = $ranges;
+  }
+}
+
+
+
+
+$final_dates = '';
+if($recurring_dates) {
+  $c=1;
+  foreach( $recurring_dates as $month => $days ) {
+    $separator = ($c>1) ? ', ':'';
+    $range_days = '';
+    $month_info = '';
+    foreach($days as $x=>$numdays) {
+      $comma = ($x>0) ? ', ':'';
+      if($numdays && is_array($numdays)) {
+        $days_info = '';
+        foreach($numdays as $k=>$v) {
+          $sep = ($k>0) ? ' - ':'';
+          $days_info .= $sep . $v;
+        }
+        $range_days .= $comma . $month . ' ' . $days_info;
+      } else {
+        $range_days .= $comma . $month . ' ' . $numdays;
+      }
+    }
+
+    $final_dates .= $separator . $range_days;
+    
+    $c++;
+  }
+}
+
+if($final_dates) {
+  $event_dates =  $final_dates;
+}
+
+// echo "<pre>";
+// print_r( $final_dates );
+// //print_r( $current_calendar );
+// print_r($recurring_dates);
+// //print_r($recurring_dates);
+// echo "</pre>";
 ?>
 <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
 	<div class="tribe-event-date"><?php echo $event_dates ?></div>

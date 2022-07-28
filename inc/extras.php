@@ -275,10 +275,10 @@ foreach($gravityFormsSelections as $fieldname) {
 }
 
 function getGravityFormList() {
-    global $wpdb;
-    $query = "SELECT id, title FROM ".$wpdb->prefix."gf_form WHERE is_active=1 AND is_trash=0 ORDER BY title ASC";
-    $result = $wpdb->get_results($query);
-    return ($result) ? $result : '';
+  global $wpdb;
+  $query = "SELECT id, title FROM ".$wpdb->prefix."gf_form WHERE is_active=1 AND is_trash=0 ORDER BY title ASC";
+  $result = $wpdb->get_results($query);
+  return ($result) ? $result : '';
 }
 
 
@@ -544,6 +544,61 @@ function tribe_get_event_website_link_label_default( $label ) {
   return $label;
 }
 add_filter( 'tribe_get_event_website_link_label', 'tribe_get_event_website_link_label_default' );
+
+
+function list_children_events($post_id) {
+  global $wpdb;
+  $query = "SELECT p.post_parent FROM " . $wpdb->prefix . "posts p WHERE p.ID=".$post_id . " AND p.post_type='tribe_events' AND p.post_status='publish'";
+  $item = $wpdb->get_row($query);
+  $parent_id = ($item) ? $item->post_parent : '';
+  $children = array();
+  if( !$parent_id ) {
+    $query2 = "SELECT p.ID FROM " . $wpdb->prefix . "posts p WHERE p.post_parent=".$post_id. " AND p.post_type='tribe_events' AND p.post_status='publish'";
+    $results = $wpdb->get_results($query2);
+    if($results) {
+      foreach($results as $row) {
+        $children[] = $row->ID;
+      }
+    }
+  } 
+  return $children;
+}
+
+
+function array_to_group_range($src) {
+  $res = [];
+  $start = null;
+
+  //Rather than make a counter use a for loop
+  for($i=0; $i < count($src); $i++){
+      //Make sure i+1 is not bigger than array
+      //If current index value + 1
+      //Equals the next index value we have a range
+      if($i+1 < count($src) && $src[$i]+1 == $src[$i+1]){
+          if($start === null){
+              $start = $i;
+          }
+          //Once the range is over we can use the current index as end
+      } elseif($start !== null){
+          $res[] = array($src[$start], $src[$i]);
+          $start = null;
+          $end = null;
+          //There was never a range.
+      } else {
+          $res[] = $src[$i];
+      }
+  }
+
+  return $res;
+
+}
+
+
+
+
+
+
+
 
 
 
