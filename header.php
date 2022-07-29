@@ -1,3 +1,34 @@
+<?php  
+$link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+$eventsPageRedirectURL = '';
+$archive_class = '';
+if( is_post_type_archive('tribe_events') ) {
+  $baseName = basename($link);
+  $tribe = get_option('tribe_events_calendar_options','option_value');
+  if($tribe) {
+    $view_desktop = $tribe['viewOption'];
+    $view_mobile = $tribe['mobile_default_view'];  
+    $eventsPageRedirectURL = get_site_url() . '/events/photo/?hide_subsequent_recurrences=1';
+    if( wp_is_mobile() ) {
+      if($view_mobile=='photo') {
+        $archive_class = 'view-mode-photo';
+        // if($baseName=='events') {
+        //   header("Location: ".$eventsPageRedirectURL);
+        //   die();
+        // }
+      }
+    } else {
+      if($view_desktop=='photo') {
+        $archive_class = 'view-mode-photo';
+        // if($baseName=='events') {
+        //   header("Location: ".$eventsPageRedirectURL);
+        //   die();
+        // }
+      }
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -28,7 +59,8 @@ $featImg = wp_get_attachment_image_src($thumbId,'full'); ?>
 <?php } ?>
 <script>
 var siteURL = '<?php echo get_site_url();?>';
-var currentURL = '<?php echo get_permalink();?>';
+var currentURL = '<?php echo $link;?>';
+var baseName = '<?php echo (!is_home() && !is_front_page()) ? basename($link) : ''; ?>';
 var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
 </script>
 <?php wp_head(); ?>
@@ -36,7 +68,7 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 <?php echo $customScripts; ?>
 <?php } ?>
 </head>
-<body <?php body_class();?>>
+<body <?php body_class($archive_class);?>>
   <a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>
 
   <div id="site">
@@ -70,11 +102,3 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
       </div>
     </div>
   </div>
-  
-
-
-
-
-    
-    
-                        

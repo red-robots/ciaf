@@ -590,13 +590,131 @@ function array_to_group_range($src) {
   }
 
   return $res;
+}
 
+
+function getMonthList($n=null) {
+  $monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  if($n!==null) {
+    return (isset($monthList[$n]) && $monthList[$n]) ? $monthList[$n] : '';
+  } else {
+    return $monthList;
+  }
+}
+
+function getMonthNumber($month) {
+  $num = '';
+  foreach( getMonthList() as $k=>$m ) {
+    $i = $k+1;
+    if($month==$m) {
+      $num = $i;
+      break;
+    }
+  }
+  return $num;
 }
 
 
 
+function getCurrentCalendar($year=null) {
+  $current_calendar = [];
+  //$monthList = getMonthList();
+  $year_input = ($year) ? $year : date('Y');
+  for($i=1; $i<=12; $i++) {
+    $d=cal_days_in_month(CAL_GREGORIAN,$i, $year_input);
+    $x = $i-1;
+    $m = getMonthList($i-1);
+    $current_calendar[$m] = $d;
+  }
+  return $current_calendar;
+}
 
 
+function getEventDateRange($event_id) {
+  $start = tribe_get_start_date($event_id,false,'M d');
+  $end = tribe_get_end_date($event_id,false,'M d');
+  $start_time = tribe_get_start_date($event_id,null,'g:ia');
+  $end_time = tribe_get_end_date($event_id,null,'g:ia');
+
+  $start_time_i = tribe_get_start_time($event_id,false,'g:ia');
+  $end_time_i = tribe_get_end_time($event_id,false,'g:ia');
+
+  $event_dates = $start;
+  if($start!=$end) {
+    $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
+  }
+  if($start_time_i || $end_time_i) {
+    $st = str_replace(':00','',$start_time);
+    $et = str_replace(':00','',$end_time);
+    $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
+    if($start_time==$end_time) {
+      $times = $start_time;
+    }
+
+    if($start==$end) {
+      if($event_dates) {
+        $event_dates .= ' <span class="sep">|</span> ' . $times;
+      } 
+    }
+  }
+
+
+  $children = list_children_events($event_id);
+  $the_dates = array();
+  if($children) {
+    foreach($children as $id) {
+      $month = tribe_get_start_date($id,false,'M');
+      $day = tribe_get_start_date($id,false,'d');
+      $the_dates[$month][$day] = $day;
+    }
+  }
+
+  $recurring_dates = [];
+  if($the_dates) {
+    foreach($the_dates as $month=>$dates) {
+      sort($dates);
+      $the_dates[$month] = $dates;
+      $max = count($dates);
+      $first = $dates[0];
+      $last = end($dates);
+      $n = $max - 1;
+      $compare = $first + ($max - 1);
+      $ranges = array_to_group_range($dates);
+      $recurring_dates[$month] = $ranges;
+    }
+  }
+
+  $final_dates = '';
+  if($recurring_dates) {
+    $c=1;
+    foreach( $recurring_dates as $month => $days ) {
+      $separator = ($c>1) ? ', ':'';
+      $range_days = '';
+      $month_info = '';
+      foreach($days as $x=>$numdays) {
+        $comma = ($x>0) ? ', ':'';
+        if($numdays && is_array($numdays)) {
+          $days_info = '';
+          foreach($numdays as $k=>$v) {
+            $sep = ($k>0) ? ' - ':'';
+            $days_info .= $sep . $v;
+          }
+          $range_days .= $comma . $month . ' ' . $days_info;
+        } else {
+          $range_days .= $comma . $month . ' ' . $numdays;
+        }
+      }
+      $final_dates .= $separator . $range_days;
+      $c++;
+    }
+  }
+
+  if($final_dates) {
+    $event_dates =  $final_dates;
+  }
+
+  return $event_dates;
+}
 
 
 

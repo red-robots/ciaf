@@ -34,13 +34,10 @@ $header_image = get_field('events_header_image','option');
 $header_bg = ($header_image) ? ' style="background-image:url('.$header_image['url'].')"' : '';
 $custom_page_title = get_field('events_page_title','option');
 ?>
-<header class="page-header list-mode"<?php echo $header_bg ?>>
-  <div class="middle-container">
-    <h1 class="page-title"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></h1>
-  </div>
-</header>
-<div
+<div id="events-archive-feeds"
 	<?php tribe_classes( $container_classes ); ?>
+  data-view-mode="photo"
+  data-baseurl="<?php echo get_site_url() . '/events/photo/?hide_subsequent_recurrences=1'; ?>"
 	data-js="tribe-events-view"
 	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
@@ -53,7 +50,15 @@ $custom_page_title = get_field('events_page_title','option');
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
+    
+  <header class="page-header list-mode"<?php echo $header_bg ?>>
+    <div class="middle-container">
+      <h1 class="page-title"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></h1>
+    </div>
+  </header>
+
 	<div class="tribe-common-l-container tribe-events-l-container">
+
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'tribe-events-calendar-pro' ) ] ); ?>
 
 		<?php $this->template( 'components/json-ld-data' ); ?>

@@ -109,6 +109,22 @@ if($images) {
 $show_date = false;
 ?>
 
+<header class="single-page-header">
+  <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( '' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
+  <div class="title-inner">
+    <div class="wrap">
+      <h1><?php the_title() ?></h1>
+      <?php if ($show_date) { ?>
+      <div class="date">
+        <?php echo $event_dates ?>
+        <?php if ($event_dates && $term) { ?>
+        <span>|</span> <a href="<?php echo $term_link ?>" style="color:<?php echo $catColor ?>"><?php echo $term_name ?></a>
+        <?php } ?>
+      </div>
+      <?php } ?>
+    </div>
+  </div>
+</header>
 
 <div class="single-main-wrap <?php echo $has_main_image; ?>">
   <div id="tribe-events-content" class="tribe-events-single">
@@ -116,9 +132,7 @@ $show_date = false;
   	<!-- Notices -->
   	<?php tribe_the_notices() ?>
 
-
-  	<div class="gallery-slider-content">
-      <a class="view-all-btn theme-btn" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( '' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
+    <div class="gallery-slider-content">
       <?php if ($images) { ?>
         <?php include( locate_template('parts/gallery-slider.php') ); ?>
       <?php } else { ?>
@@ -127,6 +141,8 @@ $show_date = false;
         </figure>
       <?php } ?>
     </div>
+
+  	<?php  //echo $title; ?>
 
   	<!-- Event header -->
   	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
@@ -150,7 +166,6 @@ $show_date = false;
   			<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
         <div class="tribe-events-single-event-description-wrap">
     			<div class="tribe-events-single-event-description tribe-events-content">
-            <h1 class="page-title"><?php the_title(); ?></h1>
     				<?php the_content(); ?>
     			</div>
         </div>

@@ -44,22 +44,24 @@ if ( is_array( $posts ) && ! empty( $posts ) ) : ?>
     $img = wp_get_attachment_image_src($thumbid,'large');
     $image_url = ($img) ? $img[0] : '';
 
-    $start = tribe_get_start_date($post,null,'M d');
-    $end = tribe_get_end_date($post,null,'M d');
-    $start_time = tribe_get_start_time($post,false,'g:ia');
-    $end_time = tribe_get_end_time($post,false,'g:ia');
-    $event_dates = $start;
-    if($start!=$end) {
-      $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
-    }
-    if($start_time || $end_time) {
-      $st = str_replace(':00','',$start_time);
-      $et = str_replace(':00','',$end_time);
-      $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
-      if($event_dates) {
-        $event_dates .= ' <span>|</span> ' . $times;
-      } 
-    }
+    // $start = tribe_get_start_date($post,null,'M d');
+    // $end = tribe_get_end_date($post,null,'M d');
+    // $start_time = tribe_get_start_time($post,false,'g:ia');
+    // $end_time = tribe_get_end_time($post,false,'g:ia');
+    // $event_dates = $start;
+    // if($start!=$end) {
+    //   $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
+    // }
+    // if($start_time || $end_time) {
+    //   $st = str_replace(':00','',$start_time);
+    //   $et = str_replace(':00','',$end_time);
+    //   $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
+    //   if($event_dates) {
+    //     $event_dates .= ' <span>|</span> ' . $times;
+    //   } 
+    // }
+
+    $event_dates = getEventDateRange($event_id);
     $venue = tribe_get_venue($event_id);
     if($i<=$max_related) { ?>
   	<li>

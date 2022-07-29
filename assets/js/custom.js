@@ -214,4 +214,35 @@ jQuery(document).ready(function ($) {
     // document.body.appendChild(css);
   };
 
+  
+
+  /* Main EVENTS page => Other view mode shows all recurring events except Photo view */
+  if( $('body.post-type-archive-tribe_events.view-mode-photo').length ) {
+    var photoMode = siteURL + '/events/photo/?hide_subsequent_recurrences=1';
+    if(baseName=='events' || baseName=='photo') {
+      $('.tribe-events-pro-photo').load(photoMode+' .tribe-common-g-row--gutters',function(){
+        $('body').addClass('content-loaded-via-js');
+        $('.tribe-events-pro-photo-nav').load(photoMode+' .tribe-events-c-nav__list',function(){
+        });
+      });
+    }
+    $(document).on('click','button.tribe-events-c-view-selector__button',function(e){
+      e.preventDefault();
+      if( $('body.archive.view-mode-photo').length ) {
+        $('ul.tribe-events-c-view-selector__list a').each(function(){
+          var target = $(this);
+          var str = target.text().trim();
+          var newLink = target.attr('href').replace('?hide_subsequent_recurrences=1','');
+          if(str=='Photo') {
+            newLink = siteURL + '/events/photo/?hide_subsequent_recurrences=1';
+          }
+          target.attr('href',newLink);
+        });
+      }
+    });
+  }
+
+
+
+
 }); 

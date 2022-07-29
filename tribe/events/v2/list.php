@@ -31,11 +31,6 @@ $header_image = get_field('events_header_image','option');
 $header_bg = ($header_image) ? ' style="background-image:url('.$header_image['url'].')"' : '';
 $custom_page_title = get_field('events_page_title','option');
 ?>
-<header class="page-header list-mode"<?php echo $header_bg ?>>
-  <div class="middle-container">
-    <h1 class="page-title"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></h1>
-  </div>
-</header>
 <div
 	<?php tribe_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
@@ -50,6 +45,11 @@ $custom_page_title = get_field('events_page_title','option');
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
+  <header class="page-header list-mode"<?php echo $header_bg ?>>
+    <div class="middle-container">
+      <h1 class="page-title"><?php echo ($custom_page_title) ? $custom_page_title : 'Events' ?></h1>
+    </div>
+  </header>
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 

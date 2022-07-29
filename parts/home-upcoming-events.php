@@ -122,27 +122,27 @@ if($events) {
               // $start_time = tribe_get_start_time($ev,false,'g:ia');
               // $end_time = tribe_get_end_time($ev,false,'g:ia');
 
-              $start_time_i = tribe_get_start_time($event_id,false,'g:ia');
-              $end_time_i = tribe_get_end_time($event_id,false,'g:ia');
-
-              $event_dates = $start;
-              if($start!=$end) {
-                $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
-              }
+              // $start_time_i = tribe_get_start_time($event_id,false,'g:ia');
+              // $end_time_i = tribe_get_end_time($event_id,false,'g:ia');
+              // $event_dates = $start;
+              // if($start!=$end) {
+              //   $event_dates = ( array_filter(array($start,$end)) ) ? implode(' &ndash; ',array_filter(array($start,$end))) : '';
+              // }
               
-              if($start_time_i || $end_time_i) {
-                $st = str_replace(':00','',$start_time);
-                $et = str_replace(':00','',$end_time);
-                $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
-                if($start_time==$end_time) {
-                  $times = $start_time;
-                }
-                if($event_dates) {
-                  $event_dates .= ' <span>|</span> ' . $times;
-                } 
-              }
+              // if($start_time_i || $end_time_i) {
+              //   $st = str_replace(':00','',$start_time);
+              //   $et = str_replace(':00','',$end_time);
+              //   $times = ( array_filter(array($st,$et)) ) ? implode(' &ndash; ',array_filter(array($st,$et))) : '';
+              //   if($start_time==$end_time) {
+              //     $times = $start_time;
+              //   }
+              //   if($event_dates) {
+              //     $event_dates .= ' <span>|</span> ' . $times;
+              //   } 
+              // }
               $event_start_format = tribe_get_start_date($event_id,null,'m.d.Y');
               $venue = tribe_get_venue($event_id);
+              $event_dates = getEventDateRange($event_id);
               
               ?>
               <div id="event-item-<?php echo $ctr; ?>" data-start="<?php echo $event_start_format ?>" data-termid="<?php echo $term_id ?>" data-term="<?php echo $term_slug ?>" class="item event project  upcoming-event-info<?php echo $term_class ?>">
