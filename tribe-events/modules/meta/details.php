@@ -14,6 +14,7 @@
 
 
 $event_id             = Tribe__Main::post_id_helper();
+$current_post_id      = $event_id;
 $time_format          = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
 $time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
 $show_time_zone       = tribe_get_option( 'tribe_events_timezones_show_zone', false );
@@ -181,15 +182,136 @@ if($website) {
 
     <?php 
     /* RECURRING EVENT */
+    $children_events = list_children_events($event_id);
+    $childrenList = array();
+
+    // $a_month = tribe_get_start_date($event_id,false,'M');
+    // $a_day = tribe_get_start_date($event_id,false,'d');
+    // $a_start_time_i = tribe_get_start_date($event_id,null,'g:ia');
+    // $a_end_time_i = tribe_get_end_date($event_id,null,'g:ia');
+
+    // $a_start_time_d = tribe_get_start_time($event_id,null,'g:ia');
+    // $a_end_time_d = tribe_get_end_time($event_id,null,'g:ia');
+    // $times = array();
+    // $a_index = $a_day;
+    // if($a_start_time_d) {
+    //   $times['post_id'] = $event_id;
+    //   $times['hours'] = array(
+    //     'start_time'=>$a_start_time_i,
+    //     'end_time'=>$a_end_time_i
+    //   );
+    //   $childrenList[$a_month][$a_index][] = $times;
+    // } else {
+    //   $childrenList[$a_month][$a_index] = array();
+    // }
+
+    if ($children_events) {
+      foreach ($children_events as $id) { 
+        $month = tribe_get_start_date($id,false,'M');
+        $day = tribe_get_start_date($id,false,'d');
+        $start_time = tribe_get_start_date($id,null,'g:ia');
+        $end_time = tribe_get_end_date($id,null,'g:ia');
+
+        $start_time_i = tribe_get_start_time($id,false,'g:ia');
+        $end_time_i = tribe_get_end_time($id,false,'g:ia');
+        $xtimes['post_id'] = $id;
+        $index = $day;
+        if($start_time_i) {
+          $xtimes['hours'] = array(
+            'start_time'=>$start_time,
+            'end_time'=>$end_time
+          );
+        } else {
+          $xtimes['hours'] = '';
+        }     
+        $childrenList[$month][$index][] = $xtimes;                 
+          
+      }
+    }
+
+    // echo "<pre>";
+    // print_r($childrenList);
+    // echo "</pre>";
+
+    
+
     if ( tribe_is_recurring_event($event_id) ) { 
       $recurring_link = get_permalink($event_id) . '/all/'; 
       $info = tribe_events_event_schedule_details( $event_id, '', '' );
       if($info) {
         $string = preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $info, $match);
         $recurring_link = (isset($match[0]) && $match[0]) ? $match[0][0] : '';
-        if($recurring_link) { ?>
+        if($childrenList) { ?>
         <dt class="tribe-event-recurring-label">Recurring Event:</dt>
-        <dd class="tribe-event-recurring"><a href="<?php echo $recurring_link ?>" rel="tag">See All</a></dd>
+        <dd class="tribe-event-recurring">
+          <!-- <a href="<?php //echo $recurring_link ?>" rel="tag">See All</a> -->
+          <ul class="recurring-dates">
+            <?php foreach ($childrenList as $month=>$dateList) { ?>
+            <li class="month-info" data-month="<?php echo $month ?>">
+              <?php if ($dateList) {  ksort($dateList); ?>
+               <?php foreach ($dateList as $day=>$atts) {  
+                    $hasHours = [];
+                    foreach ($atts as $hr) { 
+                      if(isset($hr['hours']) && $hr['hours']) {
+                        $hrx = $hr['hours'];
+                        $stx = (isset($hrx['start_time']) && $hrx['start_time']) ? $hrx['start_time'] : '';
+                        $etx = (isset($hrx['end_time']) && $hrx['end_time']) ? $hrx['end_time'] : '';
+                        
+                        if($stx) {
+                          $hasHours[] = $hr;
+                        } 
+
+                      } 
+                    }
+                  ?>
+                  <?php if ($atts) {  ?>
+                    <div class="info">
+                      <?php if ($hasHours) { ?>
+                        <div class="date"><strong><?php echo $month.' '.$day ?></strong></div>
+                        <ul class="hours">
+                        <?php foreach ($atts as $hr) { 
+                          $postid = $hr['post_id'];
+                          $h = $hr['hours'];
+                          $st = (isset($h['start_time']) && $h['start_time']) ? $h['start_time'] : '';
+                          $et = (isset($h['end_time']) && $h['end_time']) ? $h['end_time'] : '';
+                          $hours_range_arr = array($st,$et);
+                          $hours_range = '';
+                          if( $hours_range_arr && array_filter($hours_range_arr) ) {
+                            $hours_range = implode(' – ',$hours_range_arr);
+                          }
+                          $pagelink = get_permalink($postid);
+                          if($hours_range) { ?>
+                          <li>
+                            <?php if ($current_post_id==$postid) { ?>
+                              <span class="time-link"><?php echo $hours_range ?></span>
+                            <?php } else { ?>
+                              <a href="<?php echo $pagelink ?>" class="time-link"><?php echo $hours_range ?></a>
+                            <?php } ?>
+                          </li>
+                          <?php } ?>
+                        <?php } ?>
+                        </ul>
+                      <?php } else { ?>
+                        <?php  
+                        $postid = (isset($atts[0]['post_id']) && $atts[0]['post_id']) ? $atts[0]['post_id'] : '';
+                        $pagelink = get_permalink($postid);
+                        ?>
+                        <div class="date no-time-info">
+                          <?php if ($current_post_id==$postid) { ?>
+                            <span class="date-link"><?php echo $month.' '.$day ?></span>
+                          <?php } else { ?>
+                            <a href="<?php echo $pagelink ?>" class="date-link"><?php echo $month.' '.$day ?></a>
+                          <?php } ?>
+                        </div>
+                      <?php } ?>
+                    </div>
+                    <?php } ?>
+               <?php } ?> 
+              <?php } ?>
+            </li> 
+            <?php } ?>
+          </ul>
+        </dd>
         <?php } ?>
       <?php } ?>
     <?php } ?>

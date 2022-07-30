@@ -25,6 +25,19 @@
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
  */
 
+$events = tribe_get_events([
+  'posts_per_page' => 1,
+  'start_date'     => 'now',
+]);
+$init_date = esc_attr( $datepicker_date );
+$custom_selected_datetime = esc_attr( $selected_start_datetime );
+$custom_selected_date_label = esc_html( $now_label_mobile );
+if($events) {
+  $first_event_id = $events[0]->ID;
+  $init_date = tribe_get_start_date($first_event_id,null,'m/d/Y');
+  $custom_selected_datetime = date('Y-m-d',strtotime($init_date));
+  $custom_selected_date_label = date('F j, Y',strtotime($init_date));
+}
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
@@ -35,12 +48,12 @@
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'tribe-events-calendar-pro' ); ?>"
 	>
 		<time
-			datetime="<?php echo esc_attr( $selected_start_datetime ); ?>"
+			datetime="<?php echo $custom_selected_datetime; ?>"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 			<?php if ( $show_now ) : ?>
 				<span class="tribe-events-c-top-bar__datepicker-mobile">
-					<?php echo esc_html( $now_label_mobile ); ?>
+					<?php echo $custom_selected_date_label; ?>
 				</span>
 				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 					<?php echo esc_html( $now_label ); ?>
@@ -82,7 +95,7 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="<?php echo esc_attr( $datepicker_date ); ?>"
+		value="<?php echo $init_date; ?>"
 		tabindex="-1"
 		autocomplete="off"
 		readonly="readonly"

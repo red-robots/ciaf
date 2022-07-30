@@ -26,6 +26,24 @@ $selected_datetime = strtotime( $selected_date_value );
 $selected_date_label = date_i18n( tribe_get_date_format( true ), $selected_datetime );
 
 $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $date_formats->compact );
+
+
+$events = tribe_get_events([
+  'posts_per_page' => 1,
+  'start_date'     => 'now',
+]);
+
+$init_date = esc_attr( $datepicker_date );
+$custom_selected_datetime = esc_attr( date( 'Y-m-d', $selected_datetime ) );
+$custom_selected_date_label = esc_html( $selected_date_label );
+if($events) {
+  $first_event_id = $events[0]->ID;
+  $init_date = tribe_get_start_date($first_event_id,null,'m/d/Y');
+  $custom_selected_datetime = date('Y-m-d',strtotime($init_date));
+  $custom_selected_date_label = date('F j, Y',strtotime($init_date));
+}
+
+
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
@@ -36,14 +54,14 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
-			datetime="<?php echo esc_attr( date( 'Y-m-d', $selected_datetime ) ); ?>"
+			datetime="<?php echo $custom_selected_datetime; ?>"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				<?php echo esc_html( $datepicker_date ); ?>
+				<?php echo $init_date; ?>
 			</span>
 			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				<?php echo esc_html( $selected_date_label ); ?>
+				<?php echo $custom_selected_date_label; ?>
 			</span>
 		</time>
 		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-button-icon-svg' ] ] ); ?>
@@ -60,7 +78,7 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="<?php echo esc_attr( $datepicker_date ); ?>"
+		value="<?php echo $init_date; ?>"
 		tabindex="-1"
 		autocomplete="off"
 		readonly="readonly"

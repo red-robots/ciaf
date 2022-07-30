@@ -24,7 +24,16 @@
  * @var string $selected_end_date_label    The label of the datepicker interval end.
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
  */
+$events = tribe_get_events([
+  'posts_per_page' => 1,
+  'start_date'     => 'now',
+]);
 
+$init_date = esc_attr( $datepicker_date );
+if($events) {
+  $first_event_id = $events[0]->ID;
+  $init_date = tribe_get_start_date($first_event_id,null,'m/d/Y');
+}
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
@@ -82,7 +91,7 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="<?php echo esc_attr( $datepicker_date ); ?>"
+		value="<?php echo $init_date; ?>"
 		tabindex="-1"
 		autocomplete="off"
 		readonly="readonly"

@@ -552,7 +552,17 @@ function list_children_events($post_id) {
   $item = $wpdb->get_row($query);
   $parent_id = ($item) ? $item->post_parent : '';
   $children = array();
-  if( !$parent_id ) {
+  if( $parent_id ) {
+    
+    $query1 = "SELECT p.ID FROM " . $wpdb->prefix . "posts p WHERE p.post_parent=".$parent_id . " AND p.post_type='tribe_events' AND p.post_status='publish'";
+    $results = $wpdb->get_results($query1);
+    if($results) {
+      foreach($results as $row) {
+        $children[] = $row->ID;
+      }
+    }
+
+  } else {
     $query2 = "SELECT p.ID FROM " . $wpdb->prefix . "posts p WHERE p.post_parent=".$post_id. " AND p.post_type='tribe_events' AND p.post_status='publish'";
     $results = $wpdb->get_results($query2);
     if($results) {
@@ -560,7 +570,7 @@ function list_children_events($post_id) {
         $children[] = $row->ID;
       }
     }
-  } 
+  }
   return $children;
 }
 

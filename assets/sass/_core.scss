@@ -2539,6 +2539,52 @@ body.single-tribe_events {
     }
   }
 
+  ul.recurring-dates {
+    margin: 8px 0 0 0;
+    padding: 0 0;
+    list-style: none;
+    display: flex;
+    li.month-info {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 50%;
+      // column-count: 2;
+    }
+    .info {
+      margin-bottom: 3px;
+      width: 100%;
+
+      strong {
+        font-weight: bold;
+      }
+      ul.hours {
+        list-style: disc;
+        margin-bottom: 15px;
+        margin-left: 0;
+        padding-left: 25px;
+      }
+      span.date-link {
+        opacity: 0.7;
+      }
+      .date {
+        position: relative;
+      }
+      .date.no-time-info {
+        padding-left: 10px;
+        &:before {
+          content:"";
+          display: block;
+          width: 5px;
+          height: 5px;
+          background: #000;
+          position: absolute;
+          top: 8px;
+          left: 0;
+        }
+      }
+    }
+  }
+
   @include max(480px) {
     .tribe-events-single-section-title {
       margin-top: 30px;
@@ -2902,12 +2948,15 @@ body.page-template-page-contact {
   }
 }
 
-@media screen and (max-width: 782px) {
-  html.fa-events-icons-ready { margin-top: 0 !important; }
-}
+
 
 .tribe-events .tribe-events-c-nav__next:disabled,
 .tribe-events .tribe-events-c-nav__prev:disabled {
   opacity: 0.3;
+}
+
+
+@media screen and (max-width: 782px) {
+  html.fa-events-icons-ready { margin-top: 0 !important; }
 }
 

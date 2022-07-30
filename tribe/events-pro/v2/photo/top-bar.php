@@ -17,7 +17,7 @@
 
 	<?php $this->template( 'photo/top-bar/nav' ); ?>
 
-	<?php $this->template( "components/top-bar/today" ); ?>
+	<?php //$this->template( "components/top-bar/today" ); ?>
 
 	<?php $this->template( "photo/top-bar/datepicker" ); ?>
 
