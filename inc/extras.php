@@ -671,11 +671,13 @@ function getEventDateRange($event_id) {
 
   $children = list_children_events($event_id);
   $the_dates = array();
+  $datesArray = array();
   if($children) {
     foreach($children as $id) {
       $month = tribe_get_start_date($id,false,'M');
       $day = tribe_get_start_date($id,false,'d');
       $the_dates[$month][$day] = $day;
+      $datesArray[] = tribe_get_start_date($id,false,'Y-m-d');
     }
   }
 
@@ -723,10 +725,43 @@ function getEventDateRange($event_id) {
     $event_dates =  $final_dates;
   }
 
+
+  if($datesArray) {
+    $is_continues = ($datesArray) ? check_continuous_dates(implode(', ',$datesArray)) : '';
+    if($is_continues) {
+      $max = count($datesArray);
+      $first = $datesArray[0];
+      $end = end($datesArray);
+      $starting = date('M d',strtotime($first));
+      $ending = date('M d',strtotime($end));
+      if($max>1) {
+        $event_dates = $starting . ' – ' . $ending;
+      }
+    }
+  }
+
+
   return $event_dates;
 }
 
 
+function check_continuous_dates($date) {
+  $date = explode(", ", $date);
+  $previous = new DateTime($date[0]);
+  unset($date[0]);
+  
+  foreach ($date as $v) {
+    $current = new DateTime($v);
+    $diff = $current->diff($previous);
+    
+    if ($diff->days == 1) {
+      $previous =  new DateTime($v);
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
 
 
 
