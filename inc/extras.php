@@ -677,6 +677,8 @@ function getEventDateRange($event_id) {
       $month = tribe_get_start_date($id,false,'M');
       $day = tribe_get_start_date($id,false,'d');
       $the_dates[$month][$day] = $day;
+      $full_date = tribe_get_start_date($id,false,'Y-m-d');
+      $str = strtotime($full_date);
       $datesArray[] = tribe_get_start_date($id,false,'Y-m-d');
     }
   }
@@ -724,17 +726,21 @@ function getEventDateRange($event_id) {
   if($final_dates) {
     $event_dates =  $final_dates;
   }
-
+  
 
   if($datesArray) {
+    usort($datesArray, function ($a, $b) {
+      return strtotime($a) - strtotime($b);
+    });
+
     $is_continues = ($datesArray) ? check_continuous_dates(implode(', ',$datesArray)) : '';
     if($is_continues) {
       $max = count($datesArray);
-      $first = $datesArray[0];
-      $end = end($datesArray);
-      $starting = date('M d',strtotime($first));
-      $ending = date('M d',strtotime($end));
       if($max>1) {
+        $first = $datesArray[0];
+        $end = end($datesArray);
+        $starting = date('M d',strtotime($first));
+        $ending = date('M d',strtotime($end));
         $event_dates = $starting . ' – ' . $ending;
       }
     }
