@@ -2558,10 +2558,10 @@ body.single-tribe_events {
         font-weight: bold;
       }
       ul.hours {
-        list-style: disc;
+        list-style: none;
         margin-bottom: 15px;
         margin-left: 0;
-        padding-left: 25px;
+        padding-left: 0;
       }
       span.date-link {
         opacity: 0.7;
@@ -2585,7 +2585,31 @@ body.single-tribe_events {
     }
   }
 
-  @include max(480px) {
+  div.recurring-dates {
+    margin-top: 5px;
+    @include xxs {
+      column-count: 2;
+    }
+    ul {
+      margin: 0 0;
+      padding: 0 0;
+      list-style: none;
+    }
+    .date {
+      strong {
+        font-weight: bold;
+      }
+    }
+    .info {
+      margin-bottom: 20px;
+      text-align: center;
+      @include xxs {
+        text-align: left;
+      }
+    }
+  }
+
+  @include max($portrait) {
     .tribe-events-single-section-title {
       margin-top: 30px;
     }

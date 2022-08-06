@@ -185,26 +185,6 @@ if($website) {
     $children_events = list_children_events($event_id);
     $childrenList = array();
 
-    // $a_month = tribe_get_start_date($event_id,false,'M');
-    // $a_day = tribe_get_start_date($event_id,false,'d');
-    // $a_start_time_i = tribe_get_start_date($event_id,null,'g:ia');
-    // $a_end_time_i = tribe_get_end_date($event_id,null,'g:ia');
-
-    // $a_start_time_d = tribe_get_start_time($event_id,null,'g:ia');
-    // $a_end_time_d = tribe_get_end_time($event_id,null,'g:ia');
-    // $times = array();
-    // $a_index = $a_day;
-    // if($a_start_time_d) {
-    //   $times['post_id'] = $event_id;
-    //   $times['hours'] = array(
-    //     'start_time'=>$a_start_time_i,
-    //     'end_time'=>$a_end_time_i
-    //   );
-    //   $childrenList[$a_month][$a_index][] = $times;
-    // } else {
-    //   $childrenList[$a_month][$a_index] = array();
-    // }
-
     if ($children_events) {
       foreach ($children_events as $id) { 
         $month = tribe_get_start_date($id,false,'M');
@@ -229,11 +209,6 @@ if($website) {
       }
     }
 
-    // echo "<pre>";
-    // print_r($childrenList);
-    // echo "</pre>";
-
-    
 
     if ( tribe_is_recurring_event($event_id) ) { 
       $recurring_link = get_permalink($event_id) . '/all/'; 
@@ -245,31 +220,38 @@ if($website) {
         <dt class="tribe-event-recurring-label">Recurring Event:</dt>
         <dd class="tribe-event-recurring">
           <!-- <a href="<?php //echo $recurring_link ?>" rel="tag">See All</a> -->
-          <ul class="recurring-dates">
+          <div class="recurring-dates">
             <?php foreach ($childrenList as $month=>$dateList) { ?>
-            <li class="month-info" data-month="<?php echo $month ?>">
               <?php if ($dateList) {  ksort($dateList); ?>
                <?php foreach ($dateList as $day=>$atts) {  
                     $hasHours = [];
+                    $sortedTimes = [];
                     foreach ($atts as $hr) { 
                       if(isset($hr['hours']) && $hr['hours']) {
                         $hrx = $hr['hours'];
                         $stx = (isset($hrx['start_time']) && $hrx['start_time']) ? $hrx['start_time'] : '';
                         $etx = (isset($hrx['end_time']) && $hrx['end_time']) ? $hrx['end_time'] : '';
-                        
                         if($stx) {
                           $hasHours[] = $hr;
+                          $st = strtotime($stx);
+                          $et = ($etx) ? strtotime($etx) : 0;
+                          $tk = $st . '_' . $et;
+                          $sortedTimes[$tk] = array(
+                                              'post_id'=>$hr['post_id'],
+                                              'hours'=>$hr['hours'],
+                                              'start_time'=>$stx,
+                                              'end_time'=>$etx
+                                            );
                         } 
-
                       } 
                     }
                   ?>
-                  <?php if ($atts) {  ?>
+                  <?php if ($sortedTimes) {  ksort($sortedTimes); ?>
                     <div class="info">
                       <?php if ($hasHours) { ?>
                         <div class="date"><strong><?php echo $month.' '.$day ?></strong></div>
                         <ul class="hours">
-                        <?php foreach ($atts as $hr) { 
+                        <?php foreach ($sortedTimes as $hr) { 
                           $postid = $hr['post_id'];
                           $h = $hr['hours'];
                           $st = (isset($h['start_time']) && $h['start_time']) ? $h['start_time'] : '';
@@ -308,7 +290,6 @@ if($website) {
                     <?php } ?>
                <?php } ?> 
               <?php } ?>
-            </li> 
             <?php } ?>
           </ul>
         </dd>
