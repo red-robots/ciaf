@@ -1,5 +1,5 @@
 /*
- * Date Modified: 07.30.2022
+ * Date Modified: 09.01.2022
  * Developer: Lisa DeBona
 */
 div,h1,h2,h3,h4,h5,h6,p,li,a,span,strong {
@@ -2977,6 +2977,219 @@ body.page-template-page-contact {
 .tribe-events .tribe-events-c-nav__next:disabled,
 .tribe-events .tribe-events-c-nav__prev:disabled {
   opacity: 0.3;
+}
+
+.map-container {
+  float: left;
+  width: 100%;
+  height: 500px;
+  background: #CCC;
+  #map {
+    height: 100%;
+  }
+}
+
+/* Tribe Events Events by Venue */
+body.has-tribe-venue-map {
+  .middle-container {
+    max-width: 1370px;
+  }
+}
+
+.venue-map-wrapper {
+  @include flexgroup();
+  #tribe-venue-map {
+    width: 100%;
+    margin-bottom: 30px;
+    @include tab {
+      width: 60%;
+      margin-bottom: 0;
+    }
+  }
+  #venue-events-container {
+    width: 100%;
+    position: relative;
+    @include tab {
+      width: 40%;
+    }
+  }
+
+  position: relative;
+  // left: -1px;
+  // border: 1px solid #CCC;
+
+  p {display: none;}
+  .tribe-events-list {
+    @include tab {
+      padding-left: 30px;
+    }
+  }
+  .event-info {
+    padding: 15px 0;
+    border-top: 1px solid #CCC;
+    @include flexgroup();
+    @include flexbox-justify(space-between);
+    .date {
+      width: 6%;
+      padding-top: 4px;
+      .month {
+        font-size: 13px;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #777;
+      }
+      .day {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1;
+      }
+    }
+    .text {
+      width: 85%;
+      .dates {
+        font-size: 13px;
+      }
+      .event {
+        font-size: 15px;
+        font-weight: bold;
+        line-height:1.1;
+        margin: 0 0 8px;
+      }
+      .venue  {
+        font-size: 13px;
+        line-height:1.1;
+        p {
+          display: inline-block;
+          margin: 0 0;
+        }
+        .vname {
+          font-weight: bold;
+        }
+        span {
+          position: relative;
+        }
+        .address {
+          display: block;
+          width: 100%;
+        }
+        // span:last-child {
+        //   &:before {
+        //     content:"|";
+        //     display: inline-block;
+        //     margin: 0 3px;
+        //   }
+        // }
+      }
+    }
+    .links {
+      margin-top: 10px;
+      a {
+        display: inline-block;
+        text-decoration: underline;
+        font-size: 14px;
+        font-weight: bold;
+        line-height:1.1;
+        color: $secondary_color;
+        margin-right: 8px;
+        &:hover {
+          color: tint($secondary_color,40%);
+        }
+      }
+    }
+    .image {
+      position: relative;
+      figure {
+        width: 100%;
+        float: left;
+        margin: 0 0;
+        position: relative;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      span.bg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include backgroundImage(center);
+      }
+    }
+    &.has-image {
+      .text {
+        width: 60%;
+      }
+      .image {
+        width: 30%;
+      }
+    }
+  }
+  .event-info:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  #tribe-events-pagination {
+    text-align: center;
+    margin-top: 10px;
+    span, a {
+      display: inline-block;
+      font-size: 15px;
+      line-height:1;
+      margin:0 4px;
+    }
+    a {
+      color: $secondary_color;
+      &:hover {
+        color: tint($secondary_color,35%);
+      }
+    }
+  }
+
+  .lds-roller {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .lds-roller div:after {
+    background: #a2a2a2;
+  }
+
+  a.map-venue-info {
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .norecord {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  #eventsByVenue.norecord {
+    height: 100%;
+    .event {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .event-info {
+      .fbox {
+        width: 100%!important;
+        margin-bottom: 15px;
+      }
+      .fbox:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 

@@ -1,20 +1,16 @@
 <?php
 /**
- * The template for displaying all pages.
+ * Template Name: Locations
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package bellaworks
  */
-get_header(); ?>
+get_header(); 
+
+$tribe_option = get_option('tribe_events_calendar_options');
+$map_api = (isset($tribe_option['google_maps_js_api_key']) && $tribe_option['google_maps_js_api_key']) ? $tribe_option['google_maps_js_api_key'] : '';
+$map_api = false;
+?>
 <div id="primary" class="content-area default-template">
 	<?php while ( have_posts() ) : the_post(); ?>
-  
     <?php include( locate_template('parts/hero-subpage.php') ); ?>
 
     <section class="entry-content">
@@ -33,8 +29,9 @@ get_header(); ?>
       <div class="bottom-shapes">
         <div class="inner"><span class="shape3 wow jackInTheBox" data-wow-delay="0.6s"></span></div>
       </div>
-    </section>
+
 	<?php endwhile; ?>	
+
 </div>
 <?php
 get_footer();
