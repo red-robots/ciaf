@@ -67,13 +67,53 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 <?php if( $customScripts = get_field('header_custom_scripts','option') ) { ?>
 <?php echo $customScripts; ?>
 <?php } ?>
+<?php // Header notification
+      $notifOn = get_field('turn_on', 'option');
+      $notifMess = get_field('notification', 'option'); 
+      if( $notifOn == 'yes' && $notifMess != '' &&  is_front_page() ) {
+?>
+<style type="text/css">
+  .site-header {
+    position: relative;
+  }
+</style>
+
+  <script>
+  jQuery(document).ready(function ($) { 
+    var stickyTop = $('.site-header').offset().top;
+
+  $(window).on( 'scroll', function(){
+          if ($(window).scrollTop() >= stickyTop) {
+              $('.site-header').css({position: "fixed", top: "0px"});
+          } else {
+              $('.site-header').css({position: "relative", top: "0px"});
+          }
+      });
+  }); 
+  </script>
+<?php } else { ?>
+  <style type="text/css">
+  .site-header {
+    position: fixed;
+  }
+</style>
+<?php } ?>
 </head>
+
 <body <?php body_class($archive_class);?>>
   <a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>
+<?php 
+      // Header notification
+      
 
+      if( $notifOn == 'yes' && $notifMess != '' &&  is_front_page() ) {
+        echo '<div class="header-notification">'.$notifMess.'</div>';
+      }
+   ?>
   <div id="site">
   
   <div id="site-header" class="site-header">
+
     <div class="wrapper">
       <span id="mobile-menu" class="mobile-menu"><span class="bar"></span></span>
       <div class="inner">
